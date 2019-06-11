@@ -1,14 +1,12 @@
 package com.ecommerce.common.config;
 
+import com.ecommerce.common.utils.StringUtils;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.support.PropertiesLoaderUtils;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-
-import org.springframework.core.io.support.PropertiesLoaderUtils;
-
-import com.ecommerce.common.utils.StringUtils;
-
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * 全局配置类
@@ -68,7 +66,7 @@ public class Global {
      * 获取项目名称
      */
     public static String getName() {
-        return StringUtils.nvl(getConfig("project.name"), "Huizhe Yu");
+        return StringUtils.nvl(getConfig("project.name"), "e-commerce");
     }
 
     /**
@@ -124,14 +122,14 @@ public class Global {
      * 获取作者
      */
     public static String getAuthor() {
-        return StringUtils.nvl(getConfig("gen.author"), "ruoyi");
+        return StringUtils.nvl(getConfig("gen.author"), "huizhe");
     }
 
     /**
      * 生成包路径
      */
     public static String getPackageName() {
-        return StringUtils.nvl(getConfig("gen.packageName"), "com.ruoyi.project.module");
+        return StringUtils.nvl(getConfig("gen.packageName"), "com.ecommerce.web");
     }
 
     /**
