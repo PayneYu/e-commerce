@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ecommerce.framework.sys.mapper.SysConfigMapper">
+
+    <resultMap type="com.ecommerce.framework.sys.entity.SysConfig" id="SysConfigResult">
+        <id property="id" column="id"/>
+        <result property="configName" column="config_name"/>
+        <result property="configKey" column="config_key"/>
+        <result property="configValue" column="config_value"/>
+        <result property="configType" column="config_type"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+    <sql id="SysConfig_Column_List">
+        ${alpha}.id, ${alpha}.config_name, ${alpha}.config_key, ${alpha}.config_value,
+        ${alpha}.config_type,${alpha}.create_by, ${alpha}.create_time, ${alpha}.update_by, ${alpha}.update_time
+    </sql>
+
+</mapper>

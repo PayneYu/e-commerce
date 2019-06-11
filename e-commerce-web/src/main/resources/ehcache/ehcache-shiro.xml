@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache name="e-commerce" updateCheck="false">
+
+    <!-- 磁盘缓存位置 -->
+    <diskStore path="java.io.tmpdir"/>
+
+    <!-- 默认缓存 -->
+    <defaultCache
+            eternal="false"
+            maxEntriesLocalHeap="1000"
+            overflowToDisk="false"
+            timeToIdleSeconds="3600"
+            timeToLiveSeconds="3600">
+    </defaultCache>
+
+    <!-- 登录记录缓存 锁定10分钟 -->
+    <cache eternal="false"
+           maxEntriesLocalHeap="2000"
+           name="loginRecordCache"
+           overflowToDisk="false"
+           statistics="true"
+           timeToIdleSeconds="600"
+           timeToLiveSeconds="0">
+    </cache>
+
+</ehcache>
+	
