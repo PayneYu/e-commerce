@@ -1,14 +1,13 @@
 package com.ecommerce.framework.sys.service.impl;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.ecommerce.framework.base.service.impl.BaseServiceImpl;
 import com.ecommerce.framework.sys.entity.SysDictData;
 import com.ecommerce.framework.sys.mapper.SysDictDataMapper;
 import com.ecommerce.framework.sys.service.ISysDictDataService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * 字典 业务层处理
@@ -23,6 +22,17 @@ public class SysDictDataServiceImpl extends BaseServiceImpl<SysDictData, SysDict
     private SysDictDataMapper sysDictDataMapper;
 
     /**
+     * 根据条件分页查询字典数据
+     *
+     * @param dictData 字典数据信息
+     * @return 字典数据集合信息
+     */
+    @Override
+    public List<SysDictData> selectDictDataList(SysDictData dictData) {
+        return sysDictDataMapper.selectDictDataList(dictData);
+    }
+
+    /**
      * 根据字典类型查询字典数据
      *
      * @param dictType
@@ -31,7 +41,7 @@ public class SysDictDataServiceImpl extends BaseServiceImpl<SysDictData, SysDict
      */
     @Override
     public List<SysDictData> selectDictDataByType(String dictType) {
-        return sysDictDataMapper.selectByCriteria("dictType", dictType);
+        return sysDictDataMapper.selectByCriteria(SysDictData.PROPERTY_DICT_TYPE, dictType);
     }
 
     /**

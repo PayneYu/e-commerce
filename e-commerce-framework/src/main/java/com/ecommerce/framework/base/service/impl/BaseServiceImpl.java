@@ -1,6 +1,7 @@
 package com.ecommerce.framework.base.service.impl;
 
 import com.ecommerce.common.constant.Constants;
+import com.ecommerce.common.support.Convert;
 import com.ecommerce.framework.base.entity.BaseEntity;
 import com.ecommerce.framework.base.entity.CreateEntity;
 import com.ecommerce.framework.base.entity.UpdateEntity;
@@ -86,6 +87,11 @@ public class BaseServiceImpl<T, M extends BaseMapper<T>> implements BaseService<
     @Transactional
     public int deleteById(Long id) {
         return mapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public void deleteByIds(String ids) {
+        deleteByIds(Convert.toLongArray(ids));
     }
 
     @Override

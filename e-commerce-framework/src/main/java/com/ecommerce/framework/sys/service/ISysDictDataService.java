@@ -1,9 +1,9 @@
 package com.ecommerce.framework.sys.service;
 
-import java.util.List;
-
 import com.ecommerce.framework.base.service.BaseService;
 import com.ecommerce.framework.sys.entity.SysDictData;
+
+import java.util.List;
 
 /**
  * 字典 业务层
@@ -11,6 +11,14 @@ import com.ecommerce.framework.sys.entity.SysDictData;
  * @author huizhe yu
  */
 public interface ISysDictDataService extends BaseService<SysDictData> {
+
+    /**
+     * 根据条件分页查询字典数据
+     *
+     * @param dictData 字典数据信息
+     * @return 字典数据集合信息
+     */
+    List<SysDictData> selectDictDataList(SysDictData dictData);
     /**
      * 根据字典类型查询字典数据
      *

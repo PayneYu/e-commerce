@@ -16,9 +16,30 @@
     </resultMap>
 
     <sql id="SysDictType_Column_List">
-        ${alpha}.id, ${alpha}.dict_name, ${alpha}.dict_type, ${alpha}.status,${alpha}.create_by, ${alpha}.create_time,
-        ${alpha}.update_by, ${alpha}.update_time
+      select  t.id, t.dict_name, t.dict_type, t.status,t.create_by, t.create_time,t.update_by, t.update_time, t.remark from sys_dict_type t
     </sql>
+
+    <select id="selectDictTypeList" parameterType="com.ecommerce.framework.sys.entity.SysDictType" resultMap="SysDictTypeResult">
+        <include refid="SysDictType_Column_List"/>
+        <where>
+            <if test="dictName != null and dictName != ''">
+                AND dict_name like concat('%', #{dictName}, '%')
+            </if>
+            <if test="status != null and status != ''">
+                AND status = #{status}
+            </if>
+            <if test="dictType != null and dictType != ''">
+                AND dict_type like concat('%', #{dictType}, '%')
+            </if>
+            <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+                and date_format(create_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+            </if>
+            <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+                and date_format(create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+            </if>
+        </where>
+    </select>
+
 
 
 </mapper> 

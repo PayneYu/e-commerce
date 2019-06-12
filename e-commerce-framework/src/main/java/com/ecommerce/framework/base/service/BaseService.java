@@ -50,6 +50,13 @@ public interface BaseService<T> {
      *
      * @param ids
      */
+    void deleteByIds(String ids);
+
+    /**
+     * for delete by ids
+     *
+     * @param ids
+     */
     void deleteByIds(List<Long> ids);
 
     /**

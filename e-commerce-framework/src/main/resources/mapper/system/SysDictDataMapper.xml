@@ -6,7 +6,6 @@
 
     <resultMap type="com.ecommerce.framework.sys.entity.SysDictData" id="SysDictDataResult">
         <id property="id" column="id"/>
-        <result property="dictCode" column="dict_code"/>
         <result property="dictSort" column="dict_sort"/>
         <result property="dictLabel" column="dict_label"/>
         <result property="dictValue" column="dict_value"/>
@@ -22,14 +21,32 @@
     </resultMap>
 
     <sql id="SysDict_Column_List">
-        ${alpha}.id, ${alpha}.dict_code, ${alpha}.dict_sort, ${alpha}.dict_label, ${alpha}.dict_value,
-        ${alpha}.dict_type, ${alpha}.css_class, ${alpha}.list_class, ${alpha}.is_default,
-        ${alpha}.status,${alpha}.create_by, ${alpha}.create_time, ${alpha}.update_by, ${alpha}.update_time
+        select t.id, t.dict_sort, t.dict_label, t.dict_value,t.dict_type, t.css_class, t.list_class, t.is_default,
+        t.status,t.create_by, t.create_time, t.update_by, t.update_time,t.remark from sys_dict_data t
     </sql>
+
+    <select id="selectDictDataList" parameterType="com.ecommerce.framework.sys.entity.SysDictData" resultMap="SysDictDataResult">
+        <include refid="SysDict_Column_List"/>
+        <where>
+            <if test="dictType != null and dictType != ''">
+                AND t.dict_type = #{dictType}
+            </if>
+            <if test="dictLabel != null and dictLabel != ''">
+                AND t.dict_label like concat('%', #{dictLabel}, '%')
+            </if>
+            <if test="status != null and status != ''">
+                AND t.status = #{status}
+            </if>
+        </where>
+    </select>
 
     <select id="selectDictLabel" resultType="String">
         select dict_label from sys_dict_data
         where dict_type = #{dictType} and dict_value = #{dictValue}
     </select>
+
+    <update id="updateDictDataType" parameterType="String">
+        update sys_dict_data set dict_type = #{newDictType} where dict_type = #{oldDictType}
+    </update>
 
 </mapper> 

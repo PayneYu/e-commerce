@@ -1,13 +1,12 @@
 package com.ecommerce.framework.sys.entity;
 
-import javax.persistence.Table;
-
 import com.ecommerce.common.annotation.Excel;
 import com.ecommerce.framework.base.entity.UpdateEntity;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import javax.persistence.Table;
 
 /**
  * 字典数据表 sys_dict_data
@@ -19,9 +18,6 @@ import lombok.ToString;
 @ToString
 @Table(name = "sys_dict_data")
 public class SysDictData extends UpdateEntity {
-    /** 字典编码 */
-    @Excel(name = "字典编码")
-    private String dictCode;
 
     /** 字典排序 */
     @Excel(name = "字典排序")
@@ -53,5 +49,10 @@ public class SysDictData extends UpdateEntity {
     /** 状态（0正常 1停用） */
     @Excel(name = "状态", readConverterExp = "0=正常,1=停用")
     private String status;
+
+    @Excel(name = "备注")
+    private String remark;
+
+    public static final String PROPERTY_DICT_TYPE = "dictType";
 
 }
