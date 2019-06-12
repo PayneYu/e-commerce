@@ -1,11 +1,6 @@
 package com.ecommerce.framework.base.mapper;
 
-import java.lang.reflect.ParameterizedType;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.ibatis.reflection.MetaObject;
-
 import tk.mybatis.mapper.common.Mapper;
 import tk.mybatis.mapper.common.MySqlMapper;
 import tk.mybatis.mapper.entity.EntityColumn;
@@ -14,6 +9,10 @@ import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.entity.Example.Criteria;
 import tk.mybatis.mapper.mapperhelper.EntityHelper;
 import tk.mybatis.mapper.util.MetaObjectUtil;
+
+import java.lang.reflect.ParameterizedType;
+import java.util.List;
+import java.util.Map;
 
 public interface BaseMapper<T> extends Mapper<T>, MySqlMapper<T> {
 

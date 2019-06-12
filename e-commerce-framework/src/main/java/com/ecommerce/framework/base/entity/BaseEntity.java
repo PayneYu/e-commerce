@@ -1,16 +1,16 @@
 package com.ecommerce.framework.base.entity;
 
-import java.io.Serializable;
+import com.ecommerce.common.annotation.Excel;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import com.ecommerce.common.annotation.Excel;
-
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Entity基类
@@ -23,12 +23,21 @@ import lombok.ToString;
 public class BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
     /** 用户ID */
     @Excel(name = "唯一标识")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    /** 请求参数 */
+    private Map<String, Object> params;
+
+    public Map<String, Object> getParams() {
+        if (params == null) {
+            params = new HashMap<>();
+        }
+        return params;
+    }
 
     @Override
     public boolean equals(Object obj) {

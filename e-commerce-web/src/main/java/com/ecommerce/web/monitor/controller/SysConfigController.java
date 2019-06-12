@@ -1,13 +1,5 @@
 package com.ecommerce.web.monitor.controller;
 
-import java.util.List;
-
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
-
 import com.ecommerce.common.annotation.Log;
 import com.ecommerce.common.base.AjaxResult;
 import com.ecommerce.common.enums.BusinessType;
@@ -17,6 +9,13 @@ import com.ecommerce.framework.base.controller.BaseController;
 import com.ecommerce.framework.sys.entity.SysConfig;
 import com.ecommerce.framework.sys.service.ISysConfigService;
 import com.ecommerce.framework.util.ShiroUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 参数配置 信息操作处理
@@ -46,7 +45,7 @@ public class SysConfigController extends BaseController {
     @ResponseBody
     public TableDataInfo list(SysConfig config) {
         startPage();
-        List<SysConfig> list = configService.select(config);
+        List<SysConfig> list = configService.selectConfigList(config);
         return getDataTable(list);
     }
 
@@ -55,7 +54,7 @@ public class SysConfigController extends BaseController {
     @PostMapping("/export")
     @ResponseBody
     public AjaxResult export(SysConfig config) {
-        List<SysConfig> list = configService.select(config);
+        List<SysConfig> list = configService.selectConfigList(config);
         ExcelUtil<SysConfig> util = new ExcelUtil<SysConfig>(SysConfig.class);
         return util.exportExcel(list, "参数数据");
     }

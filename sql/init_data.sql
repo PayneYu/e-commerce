@@ -1,7 +1,7 @@
 -- ----------------------------
 -- 初始化-用户数据
 -- ----------------------------
-INSERT INTO sys_user (id, login_name,user_name,user_type,password,salt,status,del_flag) VALUES (1,'admin','系统管理员','00','29c67a30398638269fe600f73a054934','111111','0','0');
+INSERT INTO sys_user (id, login_name,user_name,user_type,password,salt,status,del_flag) VALUES (1,'admin','系统管理员','00','29c67a30398638269fe600f73a054934','111111','0');
 
 
 -- ----------------------------
@@ -192,8 +192,8 @@ insert into sys_dict_data values(26,26, 2,'失败','1','sys_common_status','','d
 -- ----------------------------
 -- 初始化-角色信息表数据
 -- ----------------------------
-insert into sys_role values(1, '管理员',   'admin',  1, 1, '0', '0', 'admin', now(), 'admin', now(), '管理员');
-insert into sys_role values(2, '普通角色', 'common', 2, 2, '0', '0', 'admin', now(), 'admin', now(), '普通角色');
+insert into sys_role values(1, '管理员',   'admin',  1, 1, '0', 'admin', now(), 'admin', now(), '管理员');
+insert into sys_role values(2, '普通角色', 'common', 2, 2, '0', 'admin', now(), 'admin', now(), '普通角色');
 
 
 

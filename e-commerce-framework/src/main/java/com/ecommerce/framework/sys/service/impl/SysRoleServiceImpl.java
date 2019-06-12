@@ -1,18 +1,17 @@
 package com.ecommerce.framework.sys.service.impl;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.ecommerce.common.utils.StringUtils;
 import com.ecommerce.framework.base.service.impl.BaseServiceImpl;
 import com.ecommerce.framework.sys.entity.SysRole;
+import com.ecommerce.framework.sys.entity.SysRoleMenu;
 import com.ecommerce.framework.sys.mapper.SysRoleMapper;
+import com.ecommerce.framework.sys.mapper.SysRoleMenuMapper;
 import com.ecommerce.framework.sys.service.ISysRoleService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.*;
 
 /**
  * 角色 业务层处理
@@ -25,6 +24,76 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRole, SysRoleMapper> 
     @Autowired
     private SysRoleMapper sysRoleMapper;
 
+    @Autowired
+    private SysRoleMenuMapper sysRoleMenuMapper;
+
+    @Override
+    @Transactional
+    public SysRole insert(SysRole sysRole) {
+        super.insert(sysRole);
+        insertRoleMenu(sysRole.getId(),sysRole.getMenuIds());
+        return sysRole;
+    }
+
+    private void insertRoleMenu(Long roleId,Long[] menuIds){
+        if(menuIds!=null&&menuIds.length>0){
+            List<SysRoleMenu> list = new ArrayList<>();
+            for (Long menuId : menuIds) {
+                SysRoleMenu menu = new SysRoleMenu();
+                menu.setRoleId(roleId);
+                menu.setMenuId(menuId);
+                list.add(menu);
+            }
+            sysRoleMenuMapper.insertList(list);
+        }
+    }
+
+    @Override
+    public int deleteById(Long id) {
+        sysRoleMenuMapper.deleteByCriteria(SysRoleMenu.PROPERTY_ROLE_ID,id);
+        return super.deleteById(id);
+    }
+
+    @Override
+    public void deleteByIds(List<Long> ids) {
+        sysRoleMenuMapper.deleteByProperties(SysRoleMenu.PROPERTY_ROLE_ID,ids);
+        super.deleteByIds(ids);
+    }
+
+    @Override
+    public void deleteByIds(Long[] ids) {
+        sysRoleMenuMapper.deleteByProperties(SysRoleMenu.PROPERTY_ROLE_ID,Arrays.asList(ids));
+        super.deleteByIds(ids);
+    }
+
+    @Override
+    public SysRole update(SysRole sysRole) {
+        super.update(sysRole);
+        // 删除角色与菜单关联
+        sysRoleMenuMapper.deleteByCriteria(SysRoleMenu.PROPERTY_ROLE_ID,sysRole.getId());
+        insertRoleMenu(sysRole.getId(),sysRole.getMenuIds());
+        return sysRole;
+    }
+
+    @Override
+    public SysRole updateSelective(SysRole sysRole) {
+        super.updateSelective(sysRole);
+        // 删除角色与菜单关联
+        sysRoleMenuMapper.deleteByCriteria(SysRoleMenu.PROPERTY_ROLE_ID,sysRole.getId());
+        insertRoleMenu(sysRole.getId(),sysRole.getMenuIds());
+        return sysRole;
+    }
+
+    /**
+     * 根据条件分页查询角色数据
+     *
+     * @param role 角色信息
+     * @return 角色数据集合信息
+     */
+    @Override
+    public List<SysRole> selectRoleList(SysRole role) {
+        return sysRoleMapper.selectRoleList(role);
+    }
     /**
      * 根据用户ID查询权限
      * 

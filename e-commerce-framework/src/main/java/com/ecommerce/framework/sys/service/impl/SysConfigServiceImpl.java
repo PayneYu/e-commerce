@@ -1,5 +1,7 @@
 package com.ecommerce.framework.sys.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,17 @@ public class SysConfigServiceImpl extends BaseServiceImpl<SysConfig, SysConfigMa
 
     @Autowired
     private SysConfigMapper configMapper;
+
+    /**
+     * 查询参数配置列表
+     *
+     * @param config 参数配置信息
+     * @return 参数配置集合
+     */
+    @Override
+    public List<SysConfig> selectConfigList(SysConfig config) {
+        return configMapper.selectConfigList(config);
+    }
 
     /**
      * 根据键名查询参数配置信息

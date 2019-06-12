@@ -38,6 +38,17 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, SysUserMapper> 
     @Autowired
     private ISysConfigService configService;
 
+    /**
+     * 修改用户个人详细信息
+     *
+     * @param user 用户信息
+     * @return 结果
+     */
+    @Override
+    public int updateUserInfo(SysUser user) {
+        return userMapper.updateUser(user);
+    }
+
     @Override
     public SysUser selectUserByLoginName(String loginName) {
         return userMapper.selectOneByCriteria("loginName", loginName);

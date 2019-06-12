@@ -1,13 +1,16 @@
 package com.ecommerce.framework.config;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
-import javax.servlet.Filter;
-
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
+import com.ecommerce.common.utils.StringUtils;
+import com.ecommerce.framework.shiro.realm.UserRealm;
+import com.ecommerce.framework.shiro.session.OnlineSessionDAO;
+import com.ecommerce.framework.shiro.session.OnlineSessionFactory;
+import com.ecommerce.framework.shiro.web.filter.LogoutFilter;
+import com.ecommerce.framework.shiro.web.filter.captcha.CaptchaValidateFilter;
+import com.ecommerce.framework.shiro.web.filter.online.OnlineSessionFilter;
+import com.ecommerce.framework.shiro.web.filter.sync.SyncOnlineSessionFilter;
+import com.ecommerce.framework.shiro.web.session.OnlineWebSessionManager;
+import com.ecommerce.framework.shiro.web.session.SpringSessionValidationScheduler;
 import org.apache.commons.io.IOUtils;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.codec.Base64;
@@ -24,18 +27,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.ecommerce.common.utils.StringUtils;
-import com.ecommerce.framework.shiro.realm.UserRealm;
-import com.ecommerce.framework.shiro.session.OnlineSessionDAO;
-import com.ecommerce.framework.shiro.session.OnlineSessionFactory;
-import com.ecommerce.framework.shiro.web.filter.LogoutFilter;
-import com.ecommerce.framework.shiro.web.filter.captcha.CaptchaValidateFilter;
-import com.ecommerce.framework.shiro.web.filter.online.OnlineSessionFilter;
-import com.ecommerce.framework.shiro.web.filter.sync.SyncOnlineSessionFilter;
-import com.ecommerce.framework.shiro.web.session.OnlineWebSessionManager;
-import com.ecommerce.framework.shiro.web.session.SpringSessionValidationScheduler;
-
-import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
+import javax.servlet.Filter;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * 权限配置加载
@@ -252,15 +249,14 @@ public class ShiroConfig {
         LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         // 对静态资源设置匿名访问
         filterChainDefinitionMap.put("/favicon.ico**", "anon");
-        filterChainDefinitionMap.put("/ruoyi.png**", "anon");
+        filterChainDefinitionMap.put("/logo.png**", "anon");
         filterChainDefinitionMap.put("/css/**", "anon");
         filterChainDefinitionMap.put("/docs/**", "anon");
         filterChainDefinitionMap.put("/fonts/**", "anon");
         filterChainDefinitionMap.put("/img/**", "anon");
         filterChainDefinitionMap.put("/ajax/**", "anon");
         filterChainDefinitionMap.put("/js/**", "anon");
-        filterChainDefinitionMap.put("/ruoyi/**", "anon");
-        filterChainDefinitionMap.put("/druid/**", "anon");
+        filterChainDefinitionMap.put("/common/**", "anon");
         filterChainDefinitionMap.put("/captcha/captchaImage**", "anon");
         // 退出 logout地址，shiro去清除session
         filterChainDefinitionMap.put("/logout", "logout");

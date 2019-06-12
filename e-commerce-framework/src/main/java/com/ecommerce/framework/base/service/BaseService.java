@@ -80,8 +80,6 @@ public interface BaseService<T> {
      */
     List<T> selectAll();
 
-    List<T> select(T t);
-
     List<T> selectByCriteria(Object... pv);
 
     T selectOneByCriteria(Object... pv);

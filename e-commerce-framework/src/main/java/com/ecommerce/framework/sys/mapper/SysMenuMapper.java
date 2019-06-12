@@ -1,9 +1,9 @@
 package com.ecommerce.framework.sys.mapper;
 
-import java.util.List;
-
 import com.ecommerce.framework.base.mapper.BaseMapper;
 import com.ecommerce.framework.sys.entity.SysMenu;
+
+import java.util.List;
 
 /**
  * 菜单表 数据层
@@ -11,6 +11,21 @@ import com.ecommerce.framework.sys.entity.SysMenu;
  * @author huizhe yu
  */
 public interface SysMenuMapper extends BaseMapper<SysMenu> {
+
+    /**
+     * 查询系统所有菜单（含按钮）
+     *
+     * @return 菜单列表
+     */
+    List<SysMenu> selectMenuAll();
+
+    /**
+     * 查询系统菜单列表
+     *
+     * @param menu 菜单信息
+     * @return 菜单列表
+     */
+    List<SysMenu> selectMenuList(SysMenu menu);
     /**
      * 根据用户ID查询权限
      *
@@ -44,15 +59,6 @@ public interface SysMenuMapper extends BaseMapper<SysMenu> {
      * @return 菜单列表
      */
     List<String> selectMenuTree(Long roleId);
-
-    /**
-     * 查询系统菜单列表
-     * 
-     * @param menu
-     *            菜单信息
-     * @return 菜单列表
-     */
-    List<SysMenu> selectMenuList(SysMenu menu);
 
     /**
      * 根据菜单ID查询信息

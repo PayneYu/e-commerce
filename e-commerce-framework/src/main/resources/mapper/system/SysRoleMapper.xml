@@ -11,7 +11,6 @@
         <result property="roleSort" column="role_sort"/>
         <result property="dataScope" column="data_scope"/>
         <result property="status" column="status"/>
-        <result property="delFlag" column="del_flag"/>
         <result property="createBy" column="create_by"/>
         <result property="createTime" column="create_time"/>
         <result property="updateBy" column="update_by"/>
@@ -21,9 +20,39 @@
 
     <sql id="SysRole_Column_List">
         ${alpha}.id, ${alpha}.role_name, ${alpha}.role_key, ${alpha}.role_sort, ${alpha}.data_scope, ${alpha}.status,
-        ${alpha}.del_flag, ${alpha}.create_by, ${alpha}.create_time, ${alpha}.update_by, ${alpha}.update_time,
+        ${alpha}.create_by, ${alpha}.create_time, ${alpha}.update_by, ${alpha}.update_time,
         ${alpha}.remark
     </sql>
+
+    <select id="selectRoleList" parameterType="com.ecommerce.framework.sys.entity.SysRole" resultMap="SysRoleResult">
+        SELECT
+        <include refid="SysRole_Column_List">
+            <property name="alpha" value="r"/>
+        </include>
+        from sys_role r
+        <where>
+        <if test="roleName != null and roleName != ''">
+            AND r.role_name like concat('%', #{roleName}, '%')
+        </if>
+        <if test="status != null and status != ''">
+            AND r.status = #{status}
+        </if>
+        <if test="roleKey != null and roleKey != ''">
+            AND r.role_key like concat('%', #{roleKey}, '%')
+        </if>
+        <if test="dataScope != null and dataScope != ''">
+            AND r.data_scope = #{dataScope}
+        </if>
+        <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+            and date_format(r.create_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+        </if>
+        <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+            and date_format(r.create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+        </if>
+        <!-- 数据范围过滤 -->
+        ${params.dataScope}
+        </where>
+    </select>
 
     <select id="selectRolesByUserId" parameterType="Long" resultMap="SysRoleResult">
         SELECT
@@ -33,7 +62,7 @@
         from sys_role r
         left join sys_user_role ur on ur.role_id = r.id
         left join sys_user u on u.id = ur.user_id
-        WHERE r.del_flag = '0' and ur.user_id = #{userId}
+        WHERE ur.user_id = #{userId}
     </select>
 
 

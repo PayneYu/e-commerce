@@ -1,16 +1,19 @@
 package com.ecommerce.framework.base.service.impl;
 
-import java.util.Arrays;
-import java.util.List;
-
+import com.ecommerce.common.constant.Constants;
+import com.ecommerce.framework.base.entity.BaseEntity;
+import com.ecommerce.framework.base.entity.CreateEntity;
+import com.ecommerce.framework.base.entity.UpdateEntity;
+import com.ecommerce.framework.base.mapper.BaseMapper;
+import com.ecommerce.framework.base.service.BaseService;
+import com.ecommerce.framework.util.ShiroUtils;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ecommerce.common.constant.Constants;
-import com.ecommerce.framework.base.entity.BaseEntity;
-import com.ecommerce.framework.base.mapper.BaseMapper;
-import com.ecommerce.framework.base.service.BaseService;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 /**
  * 基础数据处理层
@@ -30,6 +33,11 @@ public class BaseServiceImpl<T, M extends BaseMapper<T>> implements BaseService<
      */
     @Transactional
     public T insert(T t) {
+        if(t instanceof CreateEntity){
+            CreateEntity entity = (CreateEntity)t;
+            entity.setCreateBy(ShiroUtils.getLoginName());
+            entity.setCreateTime(new Date());
+        }
         mapper.insert(t);
         return t;
     }
@@ -54,6 +62,11 @@ public class BaseServiceImpl<T, M extends BaseMapper<T>> implements BaseService<
      */
     @Transactional
     public T update(T t) {
+        if(t instanceof UpdateEntity){
+            UpdateEntity entity = (UpdateEntity)t;
+            entity.setUpdateBy(ShiroUtils.getLoginName());
+            entity.setUpdateTime(new Date());
+        }
         mapper.updateByPrimaryKey(t);
         return t;
     }
@@ -110,10 +123,6 @@ public class BaseServiceImpl<T, M extends BaseMapper<T>> implements BaseService<
      */
     public List<T> selectAll() {
         return mapper.selectAll();
-    }
-
-    public List<T> select(T t) {
-        return mapper.select(t);
     }
 
     @Override

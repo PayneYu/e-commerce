@@ -20,4 +20,28 @@
         ${alpha}.config_type,${alpha}.create_by, ${alpha}.create_time, ${alpha}.update_by, ${alpha}.update_time
     </sql>
 
+    <select id="selectConfigList" parameterType="com.ecommerce.framework.sys.entity.SysConfig" resultMap="SysConfigResult">
+        SELECT
+        <include refid="SysConfig_Column_List">
+            <property name="alpha" value="t"/>
+        </include>
+        <where>
+            <if test="configName != null and configName != ''">
+                AND t.config_name like concat('%', #{configName}, '%')
+            </if>
+            <if test="configType != null and configType != ''">
+                AND t.config_type = #{configType}
+            </if>
+            <if test="configKey != null and configKey != ''">
+                AND t.config_key like concat('%', #{configKey}, '%')
+            </if>
+            <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+                and date_format(t.create_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+            </if>
+            <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+                and date_format(t.create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+            </if>
+        </where>
+    </select>
+
 </mapper>

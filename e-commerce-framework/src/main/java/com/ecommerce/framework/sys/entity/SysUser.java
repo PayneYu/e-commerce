@@ -1,18 +1,16 @@
 package com.ecommerce.framework.sys.entity;
 
-import java.util.Date;
-import java.util.List;
-
-import javax.persistence.Table;
-
 import com.ecommerce.common.annotation.Excel;
 import com.ecommerce.common.annotation.Excel.Type;
 import com.ecommerce.common.utils.StringUtils;
 import com.ecommerce.framework.base.entity.UpdateEntity;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import javax.persistence.Table;
+import java.util.Date;
+import java.util.List;
 
 /**
  * 用户对象 sys_user

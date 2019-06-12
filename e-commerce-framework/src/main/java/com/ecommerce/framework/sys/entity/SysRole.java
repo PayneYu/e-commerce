@@ -1,13 +1,13 @@
 package com.ecommerce.framework.sys.entity;
 
-import javax.persistence.Table;
-
 import com.ecommerce.common.annotation.Excel;
 import com.ecommerce.framework.base.entity.UpdateEntity;
-
+import com.ecommerce.framework.sys.constant.SysConstants;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import javax.persistence.Table;
 
 /**
  * 角色表 sys_role
@@ -34,17 +34,17 @@ public class SysRole extends UpdateEntity {
 
     /** 数据范围（1：所有数据权限；2：自定数据权限） */
     @Excel(name = "数据范围", readConverterExp = "1=所有数据权限,2=自定义数据权限")
-    private String dataScope;
+    private String dataScope = SysConstants.ROLE_DATASCOPE_ALL;
 
     /** 角色状态（0正常 1停用） */
     @Excel(name = "角色状态", readConverterExp = "0=正常,1=停用")
-    private String status;
+    private String status = SysConstants.STATUS_ENABLE;
 
     /** 备注 */
     private String remark;
 
     /** 删除标志（0代表存在 2代表删除） */
-    private String delFlag;
+    private String delFlag ;
 
     /** 用户是否存在此角色标识 默认不存在 */
     private boolean flag = false;

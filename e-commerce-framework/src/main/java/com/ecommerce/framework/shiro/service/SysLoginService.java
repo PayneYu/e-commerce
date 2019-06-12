@@ -112,6 +112,6 @@ public class SysLoginService {
     public void recordLoginInfo(SysUser user) {
         user.setLoginIp(ShiroUtils.getIp());
         user.setLoginDate(DateUtils.getNowDate());
-        userService.update(user);
+        userService.updateUserInfo(user);
     }
 }

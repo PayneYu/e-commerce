@@ -1,9 +1,9 @@
 package com.ecommerce.framework.sys.service;
 
-import java.util.List;
-
 import com.ecommerce.framework.base.service.BaseService;
 import com.ecommerce.framework.sys.entity.SysUser;
+
+import java.util.List;
 
 /**
  * 用户 业务层
@@ -11,6 +11,14 @@ import com.ecommerce.framework.sys.entity.SysUser;
  * @author huizhe yu
  */
 public interface ISysUserService extends BaseService<SysUser> {
+
+    /**
+     * 修改用户个人详细信息
+     *
+     * @param user 用户信息
+     * @return 结果
+     */
+    int updateUserInfo(SysUser user);
 
     /**
      * 根据条件分页查询用户对象

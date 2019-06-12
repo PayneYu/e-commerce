@@ -10,6 +10,14 @@ import com.ecommerce.framework.sys.entity.SysUser;
  */
 public interface SysUserMapper extends BaseMapper<SysUser> {
 
+    /**
+     * 修改用户信息
+     *
+     * @param user 用户信息
+     * @return 结果
+     */
+    int updateUser(SysUser user);
+
     void deleteByIds(Long[] ids);
 
 }

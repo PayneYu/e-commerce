@@ -27,6 +27,16 @@
         ${alpha}.update_time
     </sql>
 
+    <select id="selectMenuAll" resultMap="SysMenuResult">
+        select
+        <include refid="SysMenu_Column_List">
+            <property name="alpha" value="m"/>
+        </include>
+        from sys_menu m
+        order by m.order_num
+    </select>
+
+
     <select id="selectMenusByUserId" parameterType="Long" resultMap="SysMenuResult">
         select
         <include refid="SysMenu_Column_List">
@@ -59,7 +69,7 @@
     </select>
 
     <select id="selectMenuTree" parameterType="Long" resultType="String">
-        select concat(m.menu_id, m.perms) as perms
+        select concat(m.id, m.perms) as perms
         from sys_menu m
         left join sys_role_menu rm on m.id = rm.menu_id
         where rm.role_id = #{roleId}

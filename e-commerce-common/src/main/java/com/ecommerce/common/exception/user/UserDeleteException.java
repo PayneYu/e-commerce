@@ -5,10 +5,12 @@ package com.ecommerce.common.exception.user;
  * 
  * @author huizhe yu
  */
-public class UserDeleteException extends UserException {
+public class UserDeleteException extends UserException
+{
     private static final long serialVersionUID = 1L;
 
-    public UserDeleteException() {
+    public UserDeleteException()
+    {
         super("user.password.delete", null);
     }
 }

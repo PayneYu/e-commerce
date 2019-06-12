@@ -1,10 +1,10 @@
 package com.ecommerce.framework.sys.service;
 
-import java.util.List;
-import java.util.Set;
-
 import com.ecommerce.framework.base.service.BaseService;
 import com.ecommerce.framework.sys.entity.SysRole;
+
+import java.util.List;
+import java.util.Set;
 
 /**
  * 角色业务层
@@ -12,6 +12,13 @@ import com.ecommerce.framework.sys.entity.SysRole;
  * @author huizhe yu
  */
 public interface ISysRoleService extends BaseService<SysRole> {
+
+    /**
+     * 根据条件分页查询角色数据
+     * @param role 角色信息
+     * @return 角色数据集合信息
+     */
+    List<SysRole> selectRoleList(SysRole role);
     /**
      * 根据用户ID查询角色
      *

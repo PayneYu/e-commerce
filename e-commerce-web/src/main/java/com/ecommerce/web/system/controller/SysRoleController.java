@@ -1,17 +1,9 @@
 package com.ecommerce.web.system.controller;
 
-import java.util.List;
-
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
-
 import com.ecommerce.common.annotation.Log;
 import com.ecommerce.common.base.AjaxResult;
 import com.ecommerce.common.enums.BusinessType;
+import com.ecommerce.common.enums.UserStatus;
 import com.ecommerce.common.page.TableDataInfo;
 import com.ecommerce.common.support.Convert;
 import com.ecommerce.common.utils.poi.ExcelUtil;
@@ -19,6 +11,14 @@ import com.ecommerce.framework.base.controller.BaseController;
 import com.ecommerce.framework.sys.entity.SysRole;
 import com.ecommerce.framework.sys.service.ISysRoleService;
 import com.ecommerce.framework.util.ShiroUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 角色信息
@@ -44,7 +44,7 @@ public class SysRoleController extends BaseController {
     @ResponseBody
     public TableDataInfo list(SysRole role) {
         startPage();
-        List<SysRole> list = roleService.select(role);
+        List<SysRole> list = roleService.selectRoleList(role);
         return getDataTable(list);
     }
 
@@ -53,7 +53,7 @@ public class SysRoleController extends BaseController {
     @PostMapping("/export")
     @ResponseBody
     public AjaxResult export(SysRole role) {
-        List<SysRole> list = roleService.select(role);
+        List<SysRole> list = roleService.selectRoleList(role);
         ExcelUtil<SysRole> util = new ExcelUtil<SysRole>(SysRole.class);
         return util.exportExcel(list, "角色数据");
     }
@@ -72,10 +72,9 @@ public class SysRoleController extends BaseController {
     @RequiresPermissions("system:role:add")
     @Log(title = "角色管理", businessType = BusinessType.INSERT)
     @PostMapping("/add")
-    @Transactional(rollbackFor = Exception.class)
     @ResponseBody
     public AjaxResult addSave(SysRole role) {
-        role.setCreateBy(ShiroUtils.getLoginName());
+        role.setDelFlag(UserStatus.OK.getCode());
         ShiroUtils.clearCachedAuthorizationInfo();
         roleService.insert(role);
         return success();
@@ -100,9 +99,8 @@ public class SysRoleController extends BaseController {
     @Transactional(rollbackFor = Exception.class)
     @ResponseBody
     public AjaxResult editSave(SysRole role) {
-        role.setUpdateBy(ShiroUtils.getLoginName());
         ShiroUtils.clearCachedAuthorizationInfo();
-        roleService.update(role);
+        roleService.updateSelective(role);
         return success();
     }
 
@@ -121,10 +119,8 @@ public class SysRoleController extends BaseController {
     @RequiresPermissions("system:role:edit")
     @Log(title = "角色管理", businessType = BusinessType.UPDATE)
     @PostMapping("/rule")
-    @Transactional(rollbackFor = Exception.class)
     @ResponseBody
     public AjaxResult ruleSave(SysRole role) {
-        role.setUpdateBy(ShiroUtils.getLoginName());
         roleService.update(role);
         return success();
     }

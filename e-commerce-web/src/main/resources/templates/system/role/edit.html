@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="zh">
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
 <meta charset="utf-8">
 <head th:include="include :: header"></head>
 <link th:href="@{/ajax/libs/jquery-ztree/3.5/css/metro/zTreeStyle.css}" rel="stylesheet"/>
@@ -29,8 +29,7 @@
             <label class="col-sm-3 control-label">状态：</label>
             <div class="col-sm-8">
                 <div class="onoffswitch">
-                    <input type="checkbox" th:checked="${role.status == '0' ? true : false}"
-                           class="onoffswitch-checkbox" id="status" name="status">
+                    <input type="checkbox" th:checked="${role.status == '0' ? true : false}" class="onoffswitch-checkbox" id="status" name="status">
                     <label class="onoffswitch-label" for="status">
                         <span class="onoffswitch-inner"></span>
                         <span class="onoffswitch-switch"></span>
@@ -55,60 +54,60 @@
 <div th:include="include::footer"></div>
 <script th:src="@{/ajax/libs/jquery-ztree/3.5/js/jquery.ztree.all-3.5.js}"></script>
 <script type="text/javascript">
-    $(function () {
+    $(function() {
         var url = ctx + "system/menu/roleMenuTreeData?id=" + $("#id").val();
         var options = {
             id: "menuTrees",
             url: url,
-            check: {enable: true, nocheckInherit: true, chkboxType: {"Y": "ps", "N": "ps"}},
+            check: { enable: true, nocheckInherit: true, chkboxType: { "Y": "ps", "N": "ps" } },
             expandLevel: 0
         };
         $.tree.init(options);
     });
 
     $("#form-role-edit").validate({
-        rules: {
-            roleName: {
-                required: true,
+        rules:{
+            roleName:{
+                required:true,
                 remote: {
                     url: ctx + "system/role/checkRoleNameUnique",
                     type: "post",
                     dataType: "json",
                     data: {
-                        "id": function () {
+                        "id": function() {
                             return $("#id").val();
                         },
-                        "roleName": function () {
+                        "roleName": function() {
                             return $.common.trim($("#roleName").val());
                         }
                     },
-                    dataFilter: function (data, type) {
+                    dataFilter: function(data, type) {
                         return $.validate.unique(data);
                     }
                 }
             },
-            roleKey: {
-                required: true,
+            roleKey:{
+                required:true,
                 remote: {
                     url: ctx + "system/role/checkRoleKeyUnique",
                     type: "post",
                     dataType: "json",
                     data: {
-                        "id": function () {
+                        "id": function() {
                             return $("#id").val();
                         },
-                        "roleKey": function () {
+                        "roleKey": function() {
                             return $.common.trim($("#roleKey").val());
                         }
                     },
-                    dataFilter: function (data, type) {
+                    dataFilter: function(data, type) {
                         return $.validate.unique(data);
                     }
                 }
             },
-            roleSort: {
-                required: true,
-                digits: true
+            roleSort:{
+                required:true,
+                digits:true
             },
         },
         messages: {
@@ -130,10 +129,10 @@
         var remark = $("input[name='remark']").val();
         var menuIds = $.tree.getCheckedNodes();
         $.ajax({
-            cache: true,
-            type: "POST",
-            url: ctx + "system/role/edit",
-            data: {
+            cache : true,
+            type : "POST",
+            url : ctx + "system/role/edit",
+            data : {
                 "id": id,
                 "roleName": roleName,
                 "roleKey": roleKey,
@@ -142,11 +141,11 @@
                 "remark": remark,
                 "menuIds": menuIds
             },
-            async: false,
-            error: function (request) {
+            async : false,
+            error : function(request) {
                 $.modal.alertError("系统错误");
             },
-            success: function (data) {
+            success : function(data) {
                 $.operate.successCallback(data);
             }
         });
