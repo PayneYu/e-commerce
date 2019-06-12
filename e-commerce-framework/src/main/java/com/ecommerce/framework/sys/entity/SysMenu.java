@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,7 @@ public class SysMenu extends UpdateEntity {
     private String menuName;
 
     /** 父菜单名称 */
+    @Transient
     private String parentName;
 
     /** 父菜单ID */
