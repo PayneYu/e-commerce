@@ -14,17 +14,14 @@
         <result property="createTime" column="create_time"/>
         <result property="updateBy" column="update_by"/>
         <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
     </resultMap>
     <sql id="SysConfig_Column_List">
-        ${alpha}.id, ${alpha}.config_name, ${alpha}.config_key, ${alpha}.config_value,
-        ${alpha}.config_type,${alpha}.create_by, ${alpha}.create_time, ${alpha}.update_by, ${alpha}.update_time
+      SELECT t.id, t.config_name, t.config_key, t.config_value,t.config_type,t.create_by, t.create_time, t.update_by, t.update_time,t.remark from sys_config t
     </sql>
 
     <select id="selectConfigList" parameterType="com.ecommerce.framework.sys.entity.SysConfig" resultMap="SysConfigResult">
-        SELECT
-        <include refid="SysConfig_Column_List">
-            <property name="alpha" value="t"/>
-        </include>
+        <include refid="SysConfig_Column_List" />
         <where>
             <if test="configName != null and configName != ''">
                 AND t.config_name like concat('%', #{configName}, '%')

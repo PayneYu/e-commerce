@@ -80,7 +80,7 @@ public class SysProfileController extends BaseController {
             user.setSalt(ShiroUtils.randomSalt());
             user.setPassword(passwordService.encryptPassword(user.getLoginName(), newPassword, user.getSalt()));
             try {
-                userService.updateSelective(user);
+                userService.update(user);
                 setSysUser(userService.selectById(user.getId()));
                 return success();
             } catch (Exception e) {

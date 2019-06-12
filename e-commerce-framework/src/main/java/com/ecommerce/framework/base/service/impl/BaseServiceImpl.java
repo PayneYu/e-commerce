@@ -68,13 +68,6 @@ public class BaseServiceImpl<T, M extends BaseMapper<T>> implements BaseService<
             entity.setUpdateBy(ShiroUtils.getLoginName());
             entity.setUpdateTime(new Date());
         }
-        mapper.updateByPrimaryKey(t);
-        return t;
-    }
-
-    @Override
-    @Transactional
-    public T updateSelective(T t) {
         mapper.updateByPrimaryKeySelective(t);
         return t;
     }

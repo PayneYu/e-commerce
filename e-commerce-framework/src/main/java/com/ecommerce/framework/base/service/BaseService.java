@@ -31,14 +31,6 @@ public interface BaseService<T> {
     T update(T entity);
 
     /**
-     * for update entity
-     * 
-     * @param entity
-     * @return
-     */
-    T updateSelective(T entity);
-
-    /**
      * for delete entity
      * 
      * @param id

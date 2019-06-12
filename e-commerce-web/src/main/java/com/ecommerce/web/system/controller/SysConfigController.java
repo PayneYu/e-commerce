@@ -1,4 +1,4 @@
-package com.ecommerce.web.monitor.controller;
+package com.ecommerce.web.system.controller;
 
 import com.ecommerce.common.annotation.Log;
 import com.ecommerce.common.base.AjaxResult;
@@ -97,7 +97,6 @@ public class SysConfigController extends BaseController {
     @PostMapping("/edit")
     @ResponseBody
     public AjaxResult editSave(SysConfig config) {
-        config.setUpdateBy(ShiroUtils.getLoginName());
         configService.update(config);
         return success();
     }

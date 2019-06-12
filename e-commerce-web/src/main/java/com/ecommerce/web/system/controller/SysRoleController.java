@@ -100,7 +100,7 @@ public class SysRoleController extends BaseController {
     @ResponseBody
     public AjaxResult editSave(SysRole role) {
         ShiroUtils.clearCachedAuthorizationInfo();
-        roleService.updateSelective(role);
+        roleService.update(role);
         return success();
     }
 
@@ -173,7 +173,7 @@ public class SysRoleController extends BaseController {
     @PostMapping("/changeStatus")
     @ResponseBody
     public AjaxResult changeStatus(SysRole role) {
-        roleService.updateSelective(role);
+        roleService.update(role);
         return success();
     }
 }

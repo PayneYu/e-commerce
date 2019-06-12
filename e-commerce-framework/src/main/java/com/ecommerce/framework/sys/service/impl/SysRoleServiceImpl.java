@@ -75,15 +75,6 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRole, SysRoleMapper> 
         return sysRole;
     }
 
-    @Override
-    public SysRole updateSelective(SysRole sysRole) {
-        super.updateSelective(sysRole);
-        // 删除角色与菜单关联
-        sysRoleMenuMapper.deleteByCriteria(SysRoleMenu.PROPERTY_ROLE_ID,sysRole.getId());
-        insertRoleMenu(sysRole.getId(),sysRole.getMenuIds());
-        return sysRole;
-    }
-
     /**
      * 根据条件分页查询角色数据
      *

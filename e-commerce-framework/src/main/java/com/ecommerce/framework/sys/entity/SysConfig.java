@@ -1,13 +1,12 @@
 package com.ecommerce.framework.sys.entity;
 
-import javax.persistence.Table;
-
 import com.ecommerce.common.annotation.Excel;
 import com.ecommerce.framework.base.entity.UpdateEntity;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import javax.persistence.Table;
 
 /**
  * 参数配置表 sys_config
@@ -33,5 +32,7 @@ public class SysConfig extends UpdateEntity {
     /** 系统内置（Y是 N否） */
     @Excel(name = "系统内置", readConverterExp = "Y=是,N=否")
     private String configType;
+    @Excel(name = "备注")
+    private String remark;
 
 }
