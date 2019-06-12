@@ -66,6 +66,8 @@ public class SysUser extends UpdateEntity {
     /** 最后登陆时间 */
     @Excel(name = "最后登陆时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss", type = Type.EXPORT)
     private Date loginDate;
+    @Excel(name = "备注")
+    private String remark;
 
     private List<SysRole> roles;
 

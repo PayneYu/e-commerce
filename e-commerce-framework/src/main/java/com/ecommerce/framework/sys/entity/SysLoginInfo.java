@@ -1,15 +1,13 @@
 package com.ecommerce.framework.sys.entity;
 
-import java.util.Date;
-
-import javax.persistence.Table;
-
 import com.ecommerce.common.annotation.Excel;
 import com.ecommerce.framework.base.entity.BaseEntity;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import javax.persistence.Table;
+import java.util.Date;
 
 /**
  * 系统访问记录表 sys_login_info
@@ -22,10 +20,6 @@ import lombok.ToString;
 @Table(name = "sys_login_info")
 public class SysLoginInfo extends BaseEntity {
 
-    /** ID */
-    @Excel(name = "序号")
-    private Long infoId;
-
     /** 用户账号 */
     @Excel(name = "用户账号")
     private String loginName;
@@ -36,7 +30,7 @@ public class SysLoginInfo extends BaseEntity {
 
     /** 登录IP地址 */
     @Excel(name = "登录地址")
-    private String ipaddr;
+    private String ipAddress;
 
     /** 登录地点 */
     @Excel(name = "登录地点")
