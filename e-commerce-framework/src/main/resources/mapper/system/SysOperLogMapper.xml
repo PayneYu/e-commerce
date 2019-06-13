@@ -5,7 +5,7 @@
 <mapper namespace="com.ecommerce.framework.sys.mapper.SysOperLogMapper">
 
     <resultMap type="com.ecommerce.framework.sys.entity.SysOperLog" id="SysOperLogResult">
-        <id property="operId" column="oper_id"/>
+        <id property="id" column="id"/>
         <result property="title" column="title"/>
         <result property="businessType" column="business_type"/>
         <result property="method" column="method"/>
@@ -21,17 +21,10 @@
     </resultMap>
 
     <sql id="selectOperLogVo">
-        select oper_id, title, business_type, method, operator_type, oper_name, dept_name, oper_url, oper_ip,
+        select id,title, business_type, method, operator_type, oper_name, oper_url, oper_ip,
         oper_location, oper_param, status, error_msg, oper_time
         from sys_oper_log
     </sql>
-
-    <insert id="insertOperlog" parameterType="com.ecommerce.framework.sys.entity.SysOperLog">
-        insert into sys_oper_log(title, business_type, method, operator_type, oper_name, dept_name, oper_url, oper_ip,
-        oper_location, oper_param, status, error_msg, oper_time)
-        values (#{title}, #{businessType}, #{method}, #{operatorType}, #{operName}, #{deptName}, #{operUrl}, #{operIp},
-        #{operLocation}, #{operParam}, #{status}, #{errorMsg}, sysdate())
-    </insert>
 
     <select id="selectOperLogList" parameterType="com.ecommerce.framework.sys.entity.SysOperLog"
             resultMap="SysOperLogResult">
@@ -53,18 +46,6 @@
                 and date_format(oper_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
             </if>
         </where>
-    </select>
-
-    <delete id="deleteOperLogByIds" parameterType="String">
-        delete from sys_oper_log where oper_id in
-        <foreach collection="array" item="operId" open="(" separator="," close=")">
-            #{operId}
-        </foreach>
-    </delete>
-
-    <select id="selectOperLogById" parameterType="Long" resultMap="SysOperLogResult">
-        <include refid="selectOperLogVo"/>
-        where oper_id = #{operId}
     </select>
 
     <update id="cleanOperLog">

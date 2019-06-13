@@ -8,6 +8,7 @@ import com.ecommerce.framework.shiro.session.OnlineSession;
 import com.ecommerce.framework.sys.entity.SysLoginInfo;
 import com.ecommerce.framework.sys.entity.SysOperLog;
 import com.ecommerce.framework.sys.entity.SysUserOnline;
+import com.ecommerce.framework.sys.service.ISysOperLogService;
 import com.ecommerce.framework.sys.service.ISysUserOnlineService;
 import com.ecommerce.framework.sys.service.impl.SysLoginInfoServiceImpl;
 import com.ecommerce.framework.util.LogUtils;
@@ -122,9 +123,9 @@ public class AsyncFactory {
             @Override
             public void run() {
                 // 远程查询操作地点
+                operLog.setOperTime(new Date());
                 operLog.setOperLocation(AddressUtils.getRealAddressByIP(operLog.getOperIp()));
-                //TODo
-                // SpringContextHolder.getBean(ISysOperLogService.class).insertOperlog(operLog);
+                SpringContextHolder.getBean(ISysOperLogService.class).insert(operLog);
             }
         };
     }

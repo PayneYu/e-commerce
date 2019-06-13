@@ -1,19 +1,5 @@
 package com.ecommerce.framework.aspectj;
 
-import java.lang.reflect.Method;
-import java.util.Map;
-
-import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.Signature;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.AfterThrowing;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
-import org.aspectj.lang.reflect.MethodSignature;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
-
 import com.ecommerce.common.annotation.Log;
 import com.ecommerce.common.enums.BusinessStatus;
 import com.ecommerce.common.json.JSON;
@@ -24,17 +10,28 @@ import com.ecommerce.framework.manager.factory.AsyncFactory;
 import com.ecommerce.framework.sys.entity.SysOperLog;
 import com.ecommerce.framework.sys.entity.SysUser;
 import com.ecommerce.framework.util.ShiroUtils;
+import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.Signature;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.stereotype.Component;
+
+import java.lang.reflect.Method;
+import java.util.Map;
 
 /**
  * 操作日志记录处理
  * 
  * @author huizhe yu
  */
+@Slf4j
 @Aspect
 @Component
 public class LogAspect {
-    private static final Logger log = LoggerFactory.getLogger(LogAspect.class);
-
     // 配置织入点
     @Pointcut("@annotation(com.ecommerce.common.annotation.Log)")
     public void logPointCut() {}
@@ -68,10 +65,8 @@ public class LogAspect {
             if (controllerLog == null) {
                 return;
             }
-
             // 获取当前的用户
             SysUser currentUser = ShiroUtils.getSysUser();
-
             // *========数据库日志=========*//
             SysOperLog operLog = new SysOperLog();
             operLog.setStatus(BusinessStatus.SUCCESS.ordinal());

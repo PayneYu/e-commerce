@@ -1,15 +1,13 @@
 package com.ecommerce.framework.sys.entity;
 
-import java.util.Date;
-
-import javax.persistence.Table;
-
 import com.ecommerce.common.annotation.Excel;
 import com.ecommerce.framework.base.entity.BaseEntity;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import javax.persistence.Table;
+import java.util.Date;
 
 /**
  * 操作日志记录表 oper_log
@@ -21,10 +19,6 @@ import lombok.ToString;
 @ToString
 @Table(name = "sys_oper_log")
 public class SysOperLog extends BaseEntity {
-
-    /** 日志主键 */
-    @Excel(name = "操作序号")
-    private Long operId;
 
     /** 操作模块 */
     @Excel(name = "操作模块")
