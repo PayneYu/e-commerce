@@ -158,10 +158,21 @@ values(1056,'生成查询',211,'1','#','F','0','tool:gen:list','#','admin', now(
 insert into sys_menu(id,menu_name,parent_id,order_num,url,menu_type,visible,perms,icon,create_by,create_time,update_by,update_time,remark)
 values(1057,'生成代码',211,'2','#','F','0','tool:gen:code','#','admin', now(),'admin', now(),'');
 
--- 13、参数配置表
+-- 参数配置表
 insert into sys_config values(1,'主框架页-默认皮肤样式名称','sys.index.skinName','skin-blue','Y', 'admin',now(), 'admin', now(), '蓝色 skin-blue、绿色 skin-green、紫色 skin-purple、红色 skin-red、黄色 skin-yellow' );
 insert into sys_config values(2,'用户管理-账号初始密码','sys.user.initPassword','123456','Y', 'admin', now(), 'admin', now(), '初始化密码 123456' );
--- 13、字典配置表
+-- 字典配置表
+insert into sys_dict_type values(1,  '用户性别', 'sys_user_sex','0', 'admin',now(), 'admin',now(), '用户性别列表');
+insert into sys_dict_type values(2,  '菜单状态', 'sys_show_hide','0', 'admin',now(), 'admin',now(), '菜单状态列表');
+insert into sys_dict_type values(3,  '系统开关', 'sys_normal_disable','0', 'admin',now(), 'admin',now(), '系统开关列表');
+insert into sys_dict_type values(4,  '任务状态', 'sys_job_status', '0', 'admin',now(), 'admin',now(), '任务状态列表');
+insert into sys_dict_type values(5,  '系统是否', 'sys_yes_no','0', 'admin',now(), 'admin',now(), '系统是否列表');
+insert into sys_dict_type values(6,  '通知类型', 'sys_notice_type','0','admin',now(), 'admin',now(), '通知类型列表');
+insert into sys_dict_type values(7,  '通知状态', 'sys_notice_status','0', 'admin',now(), 'admin',now(), '通知状态列表');
+insert into sys_dict_type values(8,  '操作类型', 'sys_oper_type','0', 'admin',now(), 'admin',now(), '操作类型列表');
+insert into sys_dict_type values(9,  '系统状态', 'sys_common_status','0', 'admin',now(), 'admin',now(), '登录状态列表');
+
+-- 字典数据表
 insert into sys_dict_data values(1,1,1,'男','0','sys_user_sex', '','', 'Y', '0', 'admin',now(), 'admin',now(), '性别男');
 insert into sys_dict_data values(2,2,2,'女','1','sys_user_sex', '','', 'N', '0', 'admin',now(), 'admin',now(), '性别女');
 insert into sys_dict_data values(3,3,3,'未知','2','sys_user_sex', '','', 'N', '0', 'admin',now(), 'admin',now(), '性别未知');

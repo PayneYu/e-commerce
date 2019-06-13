@@ -91,6 +91,25 @@ CREATE TABLE IF NOT EXISTS `sys_config` (
   primary key (id)
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci comment = '参数配置表';
 
+-- ----------------------------
+-- 字典类型表
+-- ----------------------------
+CREATE TABLE IF NOT EXISTS `sys_dict_type` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT comment '字典主键',
+  `dict_name` varchar(100) comment '字典名称',
+  `dict_type` varchar(100) unique comment '字典类型',
+  `status` int(1) default 0 comment '操作状态（0正常 1异常）',
+  `create_by` varchar(64) comment '创建者',
+  `create_time` TIMESTAMP(6)  comment '创建时间',
+  `update_by` varchar(64) comment '更新者',
+  `update_time` TIMESTAMP(6) comment '更新时间',
+  `remark` varchar(500) comment '备注',
+  primary key (id)
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci comment = '字典类型表';
+
+-- ----------------------------
+-- 字典数据表
+-- ----------------------------
 CREATE TABLE IF NOT EXISTS `sys_dict_data` (
   `id` BIGINT NOT NULL AUTO_INCREMENT comment '字典主键',
   `dict_code` int(11) NOT NULL comment '字典编码',
@@ -128,4 +147,20 @@ CREATE TABLE IF NOT EXISTS `sys_oper_log` (
   `oper_time` TIMESTAMP(6)  comment '操作时间',
   primary key (id)
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci comment = '操作日志记录';
+
+-- ----------------------------
+-- 系统访问记录
+-- ----------------------------
+CREATE TABLE IF NOT EXISTS `sys_login_info` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT comment '日志主键',
+  `login_name` varchar(50) comment '登录账号',
+  `ip_address` varchar(50) comment '登录IP地址',
+  `login_location` 	varchar(255) comment '登录地点',
+  `browser` varchar(50) comment '浏览器类型',
+  `os` varchar(50) comment '操作系统',
+  `msg` 	varchar(2550) comment '提示消息',
+  `status` int(1) default 0 comment '操作状态（0正常 1异常）',
+  `login_time` TIMESTAMP(6)  comment '操作时间',
+  primary key (id)
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci comment = '系统访问记录';
 
