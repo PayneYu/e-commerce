@@ -1,15 +1,13 @@
 package com.ecommerce.framework.sys.entity;
 
-import java.util.Date;
-
-import javax.persistence.Table;
-
 import com.ecommerce.common.enums.OnlineStatus;
 import com.ecommerce.framework.base.entity.BaseEntity;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import javax.persistence.Table;
+import java.util.Date;
 
 /**
  * 当前在线会话 sys_user_online
@@ -25,14 +23,11 @@ public class SysUserOnline extends BaseEntity {
     /** 用户会话id */
     private String sessionId;
 
-    /** 部门名称 */
-    private String deptName;
-
     /** 登录名称 */
     private String loginName;
 
     /** 登录IP地址 */
-    private String ipaddr;
+    private String ipAddress;
 
     /** 登录地址 */
     private String loginLocation;
@@ -44,7 +39,7 @@ public class SysUserOnline extends BaseEntity {
     private String os;
 
     /** session创建时间 */
-    private Date startTimestamp;
+    private Date startTime;
 
     /** session最后访问时间 */
     private Date lastAccessTime;

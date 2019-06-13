@@ -1,15 +1,14 @@
 package com.ecommerce.framework.shiro.service;
 
-import java.io.Serializable;
-
-import org.apache.shiro.session.Session;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import com.ecommerce.common.utils.StringUtils;
 import com.ecommerce.framework.shiro.session.OnlineSession;
 import com.ecommerce.framework.sys.entity.SysUserOnline;
 import com.ecommerce.framework.sys.service.ISysUserOnlineService;
+import org.apache.shiro.session.Session;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.io.Serializable;
 
 /**
  * 会话db操作处理
@@ -46,12 +45,11 @@ public class SysShiroService {
         OnlineSession onlineSession = new OnlineSession();
         if (StringUtils.isNotNull(userOnline)) {
             onlineSession.setId(userOnline.getSessionId());
-            onlineSession.setHost(userOnline.getIpaddr());
+            onlineSession.setHost(userOnline.getIpAddress());
             onlineSession.setBrowser(userOnline.getBrowser());
             onlineSession.setOs(userOnline.getOs());
-            onlineSession.setDeptName(userOnline.getDeptName());
             onlineSession.setLoginName(userOnline.getLoginName());
-            onlineSession.setStartTimestamp(userOnline.getStartTimestamp());
+            onlineSession.setStartTimestamp(userOnline.getStartTime());
             onlineSession.setLastAccessTime(userOnline.getLastAccessTime());
             onlineSession.setTimeout(userOnline.getExpireTime());
         }
