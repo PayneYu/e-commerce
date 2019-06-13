@@ -1,6 +1,6 @@
 /**
  * 通用方法封装处理
- * Copyright (c) 2019 ruoyi
+ * Copyright (c) 2019 huizhe yu
  */
 $(function () {
     // select2复选框事件绑定

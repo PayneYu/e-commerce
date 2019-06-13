@@ -164,3 +164,59 @@ CREATE TABLE IF NOT EXISTS `sys_login_info` (
   primary key (id)
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci comment = '系统访问记录';
 
+-- ----------------------------
+-- 在线用户记录
+-- ----------------------------
+CREATE TABLE IF NOT EXISTS `sys_user_online` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT comment '主键',
+  `session_id` varchar(50) UNIQUE comment '用户会话id',
+  `login_name` varchar(50) comment '登录账号',
+  `ip_address` varchar(50) comment '登录IP地址',
+  `login_location` 	varchar(255) comment '登录地点',
+  `browser` varchar(50) comment '浏览器类型',
+  `os` varchar(50) comment '操作系统',
+  `msg` 	varchar(2550) comment '提示消息',
+  `status` varchar(10) comment '在线状态on_line在线off_line离线',
+  `start_time` TIMESTAMP(6)  comment 'session创建时间',
+  `last_access_time` TIMESTAMP(6)  comment 'session最后访问时间',
+  `expire_time` int(5)  comment '超时时间，单位为分钟',
+  primary key (id)
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci comment = '在线用户记录';
+
+-- ----------------------------
+-- 定时任务调度表
+-- ----------------------------
+CREATE TABLE IF NOT EXISTS `sys_job` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT comment '主键',
+  `job_name` varchar(64) comment '任务名称',
+  `job_group` varchar(63) comment '任务组名',
+  `method_name` varchar(500) comment '任务方法',
+  `method_params` 	varchar(50) comment '方法参数',
+  `cron_expression` varchar(255) comment 'cron执行表达式',
+  `misfire_policy` varchar(1) default '3' comment '计划执行错误策略（1立即执行 2执行一次 3放弃执行）',
+  `status` char(1) default '0' comment '状态（0正常 1停用）',
+  `create_by` varchar(64) comment '创建者',
+  `create_time` TIMESTAMP(6)  comment '创建时间',
+  `update_by` varchar(64) comment '更新者',
+  `update_time` TIMESTAMP(6) comment '更新时间',
+  `remark` varchar(500) comment '备注',
+  primary key (id)
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci comment = '在线用户记录';
+
+-- ----------------------------
+-- 定时任务调度日志表
+-- ----------------------------
+CREATE TABLE IF NOT EXISTS `sys_job_log` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT comment '主键',
+  `job_name` varchar(64) UNIQUE comment '任务名称',
+  `job_group` varchar(63) comment '任务组名',
+  `method_name` varchar(500) comment '任务方法',
+  `method_params` 	varchar(50) comment '方法参数',
+  `job_message` varchar(500) comment '日志信息',
+  `status` char(1) default '0' comment '状态（0正常 1停用）',
+  `exception_info` varchar(2000) comment '异常信息',
+  `create_time` TIMESTAMP(6)  comment '创建时间',
+  primary key (id)
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci comment = '在线用户记录';
+
+

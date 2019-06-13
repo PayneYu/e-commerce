@@ -62,14 +62,13 @@ public class BaseServiceImpl<T, M extends BaseMapper<T>> implements BaseService<
      * @return
      */
     @Transactional
-    public T update(T t) {
+    public int update(T t) {
         if(t instanceof UpdateEntity){
             UpdateEntity entity = (UpdateEntity)t;
             entity.setUpdateBy(ShiroUtils.getLoginName());
             entity.setUpdateTime(new Date());
         }
-        mapper.updateByPrimaryKeySelective(t);
-        return t;
+        return mapper.updateByPrimaryKeySelective(t);
     }
 
     /**

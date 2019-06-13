@@ -52,4 +52,11 @@
         truncate table sys_oper_log
     </update>
 
+    <delete id="deleteBeforeDays">
+        delete sys_oper_log
+        <if test="days != null">
+            where DATEDIFF(now(),create_time) >= #{days}
+        </if>
+    </delete>
+
 </mapper> 

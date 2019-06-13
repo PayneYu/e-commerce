@@ -67,7 +67,11 @@
             <artifactId>e-commerce-framework</artifactId>
             <version>${ecommerce.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.ecommerce</groupId>
+            <artifactId>e-commerce-quartz</artifactId>
+            <version>${ecommerce.version}</version>
+        </dependency>
     </dependencies>
 
     <build>

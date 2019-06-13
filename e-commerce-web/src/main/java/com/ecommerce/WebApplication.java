@@ -14,7 +14,7 @@ import tk.mybatis.spring.annotation.MapperScan;
  */
 @SpringBootApplication
 @EnableAutoConfiguration
-@MapperScan(basePackages = {"com.ecommerce.web.*.mapper", "com.ecommerce.framework.sys.mapper"})
+@MapperScan(basePackages = {"com.ecommerce.web.*.mapper", "com.ecommerce.quartz.mapper","com.ecommerce.framework.sys.mapper"})
 public class WebApplication {
 
     public static void main(String[] args) {

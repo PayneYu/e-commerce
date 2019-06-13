@@ -24,5 +24,7 @@ public interface ISysOperLogService extends BaseService<SysOperLog> {
     /**
      * 清空操作日志
      */
-    public void cleanOperLog();
+    void cleanOperLog();
+
+    void deleteBeforeDays(Integer days);
 }

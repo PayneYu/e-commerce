@@ -2,6 +2,7 @@ package com.ecommerce.framework.sys.mapper;
 
 import com.ecommerce.framework.base.mapper.BaseMapper;
 import com.ecommerce.framework.sys.entity.SysOperLog;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -24,4 +25,6 @@ public interface SysOperLogMapper extends BaseMapper<SysOperLog> {
      * 清空操作日志
      */
     void cleanOperLog();
+
+    void deleteBeforeDays(@Param("days") Integer days);
 }

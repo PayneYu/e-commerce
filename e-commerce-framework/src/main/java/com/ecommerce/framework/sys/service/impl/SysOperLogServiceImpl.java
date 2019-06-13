@@ -37,4 +37,9 @@ public class SysOperLogServiceImpl extends BaseServiceImpl<SysOperLog, SysOperLo
     public void cleanOperLog() {
         operLogMapper.cleanOperLog();
     }
+
+    @Override
+    public void deleteBeforeDays(Integer days) {
+        operLogMapper.deleteBeforeDays(days);
+    }
 }

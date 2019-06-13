@@ -41,6 +41,7 @@
         <module>e-commerce-common</module>
         <module>e-commerce-web</module>
         <module>e-commerce-framework</module>
+        <module>e-commerce-quartz</module>
     </modules>
 
     <packaging>pom</packaging>

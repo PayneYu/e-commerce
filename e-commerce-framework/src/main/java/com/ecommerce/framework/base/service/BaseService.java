@@ -28,7 +28,7 @@ public interface BaseService<T> {
      * @param entity
      * @return
      */
-    T update(T entity);
+    int update(T entity);
 
     /**
      * for delete entity

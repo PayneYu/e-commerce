@@ -1,6 +1,6 @@
 /**
  * 首页方法封装处理
- * Copyright (c) 2019 ruoyi
+ * Copyright (c) 2019 huizhe yu
  */
 layer.config({
     extend: 'moon/style.css',
