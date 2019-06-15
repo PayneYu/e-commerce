@@ -1,0 +1,24 @@
+package ${package}.${moduleName}.mapper;
+
+import com.ecommerce.framework.base.mapper.BaseMapper;
+import ${package}.${moduleName}.entity.${className};
+import java.util.List;	
+
+/**
+ * ${tableComment} 数据层
+ * 
+ * @author ${author}
+ * @date ${datetime}
+ */
+public interface ${className}Mapper extends BaseMapper<${className}>{
+
+	/**
+     * 查询${tableComment}列表
+     * 
+     * @param ${classname} ${tableComment}信息
+     * @return ${tableComment}集合
+     */
+	List<${className}> select${className}List(${className} ${classname});
+	
+
+}

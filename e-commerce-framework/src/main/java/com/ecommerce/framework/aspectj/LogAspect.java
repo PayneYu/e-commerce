@@ -2,7 +2,7 @@ package com.ecommerce.framework.aspectj;
 
 import com.ecommerce.common.annotation.Log;
 import com.ecommerce.common.enums.BusinessStatus;
-import com.ecommerce.common.json.JSON;
+import com.ecommerce.common.json.JsonUtils;
 import com.ecommerce.common.utils.ServletUtils;
 import com.ecommerce.common.utils.StringUtils;
 import com.ecommerce.framework.manager.AsyncManager;
@@ -132,7 +132,7 @@ public class LogAspect {
      */
     private void setRequestValue(SysOperLog operLog) throws Exception {
         Map<String, String[]> map = ServletUtils.getRequest().getParameterMap();
-        String params = JSON.marshal(map);
+        String params = JsonUtils.objToString(map);
         operLog.setOperParam(StringUtils.substring(params, 0, 2000));
     }
 

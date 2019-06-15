@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="${package}.${moduleName}.mapper.${className}Mapper">
+    
+    <resultMap type="${package}.${moduleName}.entity.${className}" id="${className}Result">
+#foreach ($column in $columns)
+        <result property="${column.attrname}" column="${column.columnName}"/>
+#end
+    </resultMap>
+	
+	<sql id="select${className}Vo">
+        select#foreach($column in $columns)t.$column.columnName#if($velocityCount != $columns.size()),#end#end from ${tableName} t
+    </sql>
+	
+    <select id="select${className}List" parameterType="${package}.${moduleName}.entity.${className}" resultMap="${className}Result">
+        <include refid="select${className}Vo"/>
+        <where>  
+#foreach($column in $columns)
+            <if test="$column.attrname != null #if($column.attrType == 'String' ) and $column.attrname.trim() != '' #end"> and $column.columnName = #{$column.attrname}</if>
+ #end
+        </where>
+    </select>
+
+    
+</mapper>

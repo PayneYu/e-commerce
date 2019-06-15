@@ -15,6 +15,8 @@ values(2,'系统监控',null,'2','#','M','0','','fa fa-video-camera','admin', no
 insert into sys_menu(id,menu_name,parent_id,order_num,url,menu_type,visible,perms,icon,create_by,create_time,update_by,update_time,remark)
 values(3,'系统工具',null,'3','#','M','0','','fa fa-bars','admin', now(),'admin', now(),'系统工具目录');
 -- 二级菜单
+insert into sys_menu (menu_name, parent_id, order_num, url,menu_type, visible, perms, icon, create_by, create_time, update_by, update_time, remark)
+values('机构管理', 1, '1', '/sys/sysOrg', 'C', '0', 'sys:sysOrg:view', '#', 'admin', now(), 'admin', now(), '机构管理菜单');
 insert into sys_menu(id,menu_name,parent_id,order_num,url,menu_type,visible,perms,icon,create_by,create_time,update_by,update_time,remark)
 values(100,'用户管理',1,'1','/system/user','C','0','system:user:view','#','admin', now(),'admin', now(),'用户管理菜单');
 insert into sys_menu(id,menu_name,parent_id,order_num,url,menu_type,visible,perms,icon,create_by,create_time,update_by,update_time,remark)

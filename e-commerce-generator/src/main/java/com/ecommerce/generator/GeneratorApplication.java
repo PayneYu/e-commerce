@@ -1,4 +1,4 @@
-package com.ecommerce;
+package com.ecommerce.generator;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -7,17 +7,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import tk.mybatis.spring.annotation.MapperScan;
 
 /**
- * @program: Supply Center
+ * @program: supplycenter
  * @description:
  * @author: Huizhe Yu
- * @create: 2019-06-03 22:58
+ * @create: 2019-03-06 11:02
  */
 @SpringBootApplication
 @EnableAutoConfiguration
-@MapperScan(basePackages = {"com.ecommerce.web.*.mapper", "com.ecommerce.*.mapper","com.ecommerce.framework.sys.mapper"})
-public class WebApplication {
-
+@MapperScan(basePackages = {"com.thermofisher.dsc.generator.mapper"})
+public class GeneratorApplication {
     public static void main(String[] args) {
-        SpringApplication.run(WebApplication.class, args);
+        SpringApplication.run(GeneratorApplication.class, args);
     }
 }

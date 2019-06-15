@@ -1,17 +1,15 @@
 package com.ecommerce.framework.util;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.ecommerce.common.json.JsonUtils;
+import com.ecommerce.common.utils.IpUtils;
 import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ecommerce.common.json.JSON;
-import com.ecommerce.common.utils.IpUtils;
+import javax.servlet.http.HttpServletRequest;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.Map;
 
 /**
  * 处理并记录日志文件
@@ -110,7 +108,7 @@ public class LogUtils {
 
     protected static String getParams(HttpServletRequest request) throws Exception {
         Map<String, String[]> params = request.getParameterMap();
-        return JSON.marshal(params);
+        return JsonUtils.objToString(params);
     }
 
     protected static String getUsername() {

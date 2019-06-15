@@ -1,9 +1,12 @@
 package com.ecommerce.common.utils;
 
+import com.ecommerce.common.config.Global;
+import com.ecommerce.common.json.JsonUtils;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.ecommerce.common.config.Global;
 
 /**
  * 获取地址类
@@ -27,13 +30,15 @@ public class AddressUtils {
                 log.error("获取地理位置异常 {}", ip);
                 return address;
             }
-            // JSONObject obj;
             try {
-                // obj = JSON.unmarshal(rspStr, JSONObject.class);
-                // JSONObject data = obj.getObj("data");
-                // String region = data.getStr("region");
-                // String city = data.getStr("city");
-                address = "陕西 西安";
+                IpInfoResponse response = JsonUtils.stringToObj(rspStr,IpInfoResponse.class);
+                IpInfo ipInfo = response.getIpInfo();
+                if (ipInfo != null) {
+                    if(StringUtils.isNotBlank(ipInfo.getArea())){
+                        address = ipInfo.getArea() + " ";
+                    }
+                    address += ipInfo.getCity();
+                }
             } catch (Exception e) {
                 log.error("获取地理位置异常 {}", ip);
             }
@@ -41,3 +46,25 @@ public class AddressUtils {
         return address;
     }
 }
+
+@Getter
+@Setter
+@ToString
+class IpInfoResponse {
+    private Integer code;
+
+    private IpInfo ipInfo;
+}
+
+@Getter
+@Setter
+@ToString
+class IpInfo {
+    private String ip;
+    private String country;
+    private String area ;
+    private String region;
+    private String city;
+    private String isp;
+}
+

@@ -1,0 +1,41 @@
+package ${package}.${moduleName}.entity;
+
+import com.ecommerce.common.annotation.Excel;
+import com.ecommerce.framework.base.entity.BaseEntity;
+#foreach ($column in $columns)
+  #if($column.attrType == 'Date')
+import java.util.Date;
+    #break
+  #end
+#end
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import javax.persistence.Table;
+
+/**
+ * ${tableName} ${tableComment}
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Getter
+@Setter
+@ToString
+@Table(name="${tableName}")
+public class ${className} extends BaseEntity {
+
+#foreach ($column in $columns)
+#if($column.attrname != 'id')
+  /**
+   * $column.attrname $column.columnComment
+   */
+  @Excel(name = "$column.columnComment")
+  private $column.attrType $column.attrname;
+#end
+#end
+
+}
+
+

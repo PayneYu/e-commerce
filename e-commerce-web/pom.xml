@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>e-commerce-admin</artifactId>
+    <artifactId>e-commerce-web</artifactId>
 
     <description>
         web服务入口
@@ -70,6 +70,11 @@
         <dependency>
             <groupId>com.ecommerce</groupId>
             <artifactId>e-commerce-quartz</artifactId>
+            <version>${ecommerce.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ecommerce</groupId>
+            <artifactId>e-commerce-generator</artifactId>
             <version>${ecommerce.version}</version>
         </dependency>
     </dependencies>

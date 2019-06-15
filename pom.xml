@@ -42,6 +42,8 @@
         <module>e-commerce-web</module>
         <module>e-commerce-framework</module>
         <module>e-commerce-quartz</module>
+        <module>e-commerce-generator</module>
+        <module>e-commerce-wechat</module>
     </modules>
 
     <packaging>pom</packaging>

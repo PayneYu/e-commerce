@@ -1,3 +1,19 @@
+CREATE TABLE IF NOT EXISTS `sys_org` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT comment '机构主键',
+  `parent_id` BIGINT comment '上级机构',
+  `org_type` int(11) not null comment '机构类型',
+  `org_code` varchar(40) comment '机构编码',
+  `org_name`	varchar(100)  comment '机构名称',
+  `org_level` int(11) comment '机构级别',
+  `org_adress` varchar(255) comment '机构地址',
+  `org_path_code` varchar(255) comment '机构全路径ID',
+  `org_path_name` varchar(255) comment '机构全路径名称',
+  `lng` double NULL comment '经度',
+  `lat` double NULL comment '纬度',
+  primary key (id),
+  CONSTRAINT `FK_sys_org_parent_id` FOREIGN KEY (`parent_id`) REFERENCES `sys_org` (`id`)
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci comment = '机构信息表';
+
 CREATE TABLE IF NOT EXISTS `sys_user` (
   `id` BIGINT NOT NULL AUTO_INCREMENT comment '用户ID',
   `login_name` varchar(30) 	not null comment '登录账号',
@@ -201,7 +217,7 @@ CREATE TABLE IF NOT EXISTS `sys_job` (
   `update_time` TIMESTAMP(6) comment '更新时间',
   `remark` varchar(500) comment '备注',
   primary key (id)
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci comment = '在线用户记录';
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci comment = '定时任务调度表';
 
 -- ----------------------------
 -- 定时任务调度日志表
@@ -217,6 +233,6 @@ CREATE TABLE IF NOT EXISTS `sys_job_log` (
   `exception_info` varchar(2000) comment '异常信息',
   `create_time` TIMESTAMP(6)  comment '创建时间',
   primary key (id)
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci comment = '在线用户记录';
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci comment = '定时任务调度日志表';
 
 
