@@ -173,40 +173,54 @@ insert into sys_dict_type values(6,  '通知类型', 'sys_notice_type','0','admi
 insert into sys_dict_type values(7,  '通知状态', 'sys_notice_status','0', 'admin',now(), 'admin',now(), '通知状态列表');
 insert into sys_dict_type values(8,  '操作类型', 'sys_oper_type','0', 'admin',now(), 'admin',now(), '操作类型列表');
 insert into sys_dict_type values(9,  '系统状态', 'sys_common_status','0', 'admin',now(), 'admin',now(), '登录状态列表');
+insert into sys_dict_type values(10,  '机构类型', 'sys_org_type','0', 'admin',now(), 'admin',now(), '机构类型列表');
 
 -- 字典数据表
-insert into sys_dict_data values(1,1,1,'男','0','sys_user_sex', '','', 'Y', '0', 'admin',now(), 'admin',now(), '性别男');
-insert into sys_dict_data values(2,2,2,'女','1','sys_user_sex', '','', 'N', '0', 'admin',now(), 'admin',now(), '性别女');
-insert into sys_dict_data values(3,3,3,'未知','2','sys_user_sex', '','', 'N', '0', 'admin',now(), 'admin',now(), '性别未知');
-insert into sys_dict_data values(4,4,1,'显示','0','sys_show_hide','','primary', 'Y', '0', 'admin',now(), 'admin',now(), '显示菜单');
-insert into sys_dict_data values(5,5,2,'隐藏','1','sys_show_hide','','danger','N', '0', 'admin',now(), 'admin',now(), '隐藏菜单');
-insert into sys_dict_data values(6,6,1,'正常','0','sys_normal_disable','','primary', 'Y', '0', 'admin',now(), 'admin',now(), '正常状态');
-insert into sys_dict_data values(7,7,2,'停用','1','sys_normal_disable','','danger','N', '0', 'admin',now(), 'admin',now(), '停用状态');
-insert into sys_dict_data values(8,8,1,'正常','0','sys_job_status', '','primary', 'Y', '0', 'admin',now(), 'admin',now(), '正常状态');
-insert into sys_dict_data values(9,9,2,'暂停','1','sys_job_status', '','danger','N', '0', 'admin',now(), 'admin',now(), '停用状态');
-insert into sys_dict_data values(10,10, 1,'是','Y','sys_yes_no','','primary', 'Y', '0', 'admin',now(), 'admin',now(), '系统默认是');
-insert into sys_dict_data values(11,11, 2,'否','N','sys_yes_no','','danger','N', '0', 'admin',now(), 'admin',now(), '系统默认否');
-insert into sys_dict_data values(12,12, 1,'通知','1','sys_notice_type','','warning', 'Y', '0', 'admin',now(), 'admin',now(), '通知');
-insert into sys_dict_data values(12,13, 2,'公告','2','sys_notice_type','','success', 'N', '0', 'admin',now(), 'admin',now(), '公告');
-insert into sys_dict_data values(14,14, 1,'正常','0','sys_notice_status','','primary', 'Y', '0', 'admin',now(), 'admin',now(), '正常状态');
-insert into sys_dict_data values(15,15, 2,'关闭','1','sys_notice_status','','danger','N', '0', 'admin',now(), 'admin',now(), '关闭状态');
-insert into sys_dict_data values(16,16, 1,'新增','1','sys_oper_type','','info', 'N', '0', 'admin',now(), 'admin',now(), '新增操作');
-insert into sys_dict_data values(17,17, 2,'修改','2','sys_oper_type','','info', 'N', '0', 'admin',now(), 'admin',now(), '修改操作');
-insert into sys_dict_data values(18,18, 3,'删除','3','sys_oper_type','','danger','N', '0', 'admin',now(), 'admin',now(), '删除操作');
-insert into sys_dict_data values(19,19, 4,'授权','4','sys_oper_type','','primary', 'N', '0', 'admin',now(), 'admin',now(), '授权操作');
-insert into sys_dict_data values(20,20, 5,'导出','5','sys_oper_type','','warning', 'N', '0', 'admin',now(), 'admin',now(), '导出操作');
-insert into sys_dict_data values(21,21, 6,'导入','6','sys_oper_type','','warning', 'N', '0', 'admin',now(), 'admin',now(), '导入操作');
-insert into sys_dict_data values(22,22, 7,'强退','7','sys_oper_type','','danger','N', '0', 'admin',now(), 'admin',now(), '强退操作');
-insert into sys_dict_data values(23,23, 8,'生成代码', '8','sys_oper_type','','warning', 'N', '0', 'admin',now(), 'admin',now(), '生成操作');
-insert into sys_dict_data values(24,24, 8,'清空数据', '9','sys_oper_type','','danger','N', '0', 'admin',now(), 'admin',now(), '清空操作');
-insert into sys_dict_data values(25,25, 1,'成功','0','sys_common_status','','primary', 'N', '0', 'admin',now(), 'admin',now(), '正常状态');
-insert into sys_dict_data values(26,26, 2,'失败','1','sys_common_status','','danger','N', '0', 'admin',now(), 'admin',now(), '停用状态');
+insert into sys_dict_data values(1,1,'男','0','sys_user_sex', '','', 'Y', '0', 'admin',now(), 'admin',now(), '性别男');
+insert into sys_dict_data values(2,2,'女','1','sys_user_sex', '','', 'N', '0', 'admin',now(), 'admin',now(), '性别女');
+insert into sys_dict_data values(3,3,'未知','2','sys_user_sex', '','', 'N', '0', 'admin',now(), 'admin',now(), '性别未知');
+insert into sys_dict_data values(4,1,'显示','0','sys_show_hide','','primary', 'Y', '0', 'admin',now(), 'admin',now(), '显示菜单');
+insert into sys_dict_data values(5,2,'隐藏','1','sys_show_hide','','danger','N', '0', 'admin',now(), 'admin',now(), '隐藏菜单');
+insert into sys_dict_data values(6,1,'正常','0','sys_normal_disable','','primary', 'Y', '0', 'admin',now(), 'admin',now(), '正常状态');
+insert into sys_dict_data values(7,2,'停用','1','sys_normal_disable','','danger','N', '0', 'admin',now(), 'admin',now(), '停用状态');
+insert into sys_dict_data values(8,1,'正常','0','sys_job_status', '','primary', 'Y', '0', 'admin',now(), 'admin',now(), '正常状态');
+insert into sys_dict_data values(9,2,'暂停','1','sys_job_status', '','danger','N', '0', 'admin',now(), 'admin',now(), '停用状态');
+insert into sys_dict_data values(10, 1,'是','Y','sys_yes_no','','primary', 'Y', '0', 'admin',now(), 'admin',now(), '系统默认是');
+insert into sys_dict_data values(11, 2,'否','N','sys_yes_no','','danger','N', '0', 'admin',now(), 'admin',now(), '系统默认否');
+insert into sys_dict_data values(12, 1,'通知','1','sys_notice_type','','warning', 'Y', '0', 'admin',now(), 'admin',now(), '通知');
+insert into sys_dict_data values(12, 2,'公告','2','sys_notice_type','','success', 'N', '0', 'admin',now(), 'admin',now(), '公告');
+insert into sys_dict_data values(14, 1,'正常','0','sys_notice_status','','primary', 'Y', '0', 'admin',now(), 'admin',now(), '正常状态');
+insert into sys_dict_data values(15, 2,'关闭','1','sys_notice_status','','danger','N', '0', 'admin',now(), 'admin',now(), '关闭状态');
+insert into sys_dict_data values(16, 1,'新增','1','sys_oper_type','','info', 'N', '0', 'admin',now(), 'admin',now(), '新增操作');
+insert into sys_dict_data values(17, 2,'修改','2','sys_oper_type','','info', 'N', '0', 'admin',now(), 'admin',now(), '修改操作');
+insert into sys_dict_data values(18, 3,'删除','3','sys_oper_type','','danger','N', '0', 'admin',now(), 'admin',now(), '删除操作');
+insert into sys_dict_data values(19, 4,'授权','4','sys_oper_type','','primary', 'N', '0', 'admin',now(), 'admin',now(), '授权操作');
+insert into sys_dict_data values(20, 5,'导出','5','sys_oper_type','','warning', 'N', '0', 'admin',now(), 'admin',now(), '导出操作');
+insert into sys_dict_data values(21, 6,'导入','6','sys_oper_type','','warning', 'N', '0', 'admin',now(), 'admin',now(), '导入操作');
+insert into sys_dict_data values(22, 7,'强退','7','sys_oper_type','','danger','N', '0', 'admin',now(), 'admin',now(), '强退操作');
+insert into sys_dict_data values(23, 8,'生成代码', '8','sys_oper_type','','warning', 'N', '0', 'admin',now(), 'admin',now(), '生成操作');
+insert into sys_dict_data values(24, 8,'清空数据', '9','sys_oper_type','','danger','N', '0', 'admin',now(), 'admin',now(), '清空操作');
+insert into sys_dict_data values(25, 1,'成功','0','sys_common_status','','primary', 'N', '0', 'admin',now(), 'admin',now(), '正常状态');
+insert into sys_dict_data values(26, 2,'失败','1','sys_common_status','','danger','N', '0', 'admin',now(), 'admin',now(), '停用状态');
 
+insert into sys_dict_data values(27, 1,'系统机构','0','sys_org_type','','', 'N', '0', 'admin',now(), 'admin',now(), '系统机构');
+insert into sys_dict_data values(28, 2,'省','10','sys_org_type','','','Y', '0', 'admin',now(), 'admin',now(), '省');
+insert into sys_dict_data values(29, 3,'市','20','sys_org_type','','','N', '0', 'admin',now(), 'admin',now(), '');
+insert into sys_dict_data values(30, 4,'区','30','sys_org_type','','','N', '0', 'admin',now(), 'admin',now(), '');
+insert into sys_dict_data values(40, 5,'街道','40','sys_org_type','','','N', '0', 'admin',now(), 'admin',now(), '');
+insert into sys_dict_data values(50, 6,'居委会','50','sys_org_type','','','N', '0', 'admin',now(), 'admin',now(), '');
 -- ----------------------------
 -- 初始化-角色信息表数据
 -- ----------------------------
 insert into sys_role values(1, '管理员',   'admin',  1, 1, '0', 'admin', now(), 'admin', now(), '管理员');
 insert into sys_role values(2, '普通角色', 'common', 2, 2, '0', 'admin', now(), 'admin', now(), '普通角色');
+
+
+INSERT INTO `sys_org`(`id`, `parent_id`, `org_type`, `org_code`, `org_name`, `org_level`, `org_address`, `org_path_code`, `org_path_name`, `lng`, `lat`) VALUES (61, NULL,10, '610000000000', '陕西省', 1, '陕西省', '61', '陕西省', 8.948024, 34.263161);
+INSERT INTO `sys_org`(`id`, `parent_id`, `org_type`, `org_code`, `org_name`, `org_level`, `org_address`, `org_path_code`, `org_path_name`, `lng`, `lat`) VALUES (6151, '61', 20, '610100000000', '西安市', 2, '陕西省西安市', '61-6151', '陕西省-西安市', 8.948024, 34.263161);
+INSERT INTO `sys_org`(`id`, `parent_id`, `org_type`, `org_code`, `org_name`, `org_level`, `org_address`, `org_path_code`, `org_path_name`, `lng`, `lat`) VALUES (615102, '6151', 30, '610102000000', '新城区', 3, '陕西省西安市新城区', '61-6151-615102', '陕西省-西安市-新城区', 8.960747, 34.266451);
+INSERT INTO `sys_org`(`id`, `parent_id`, `org_type`, `org_code`, `org_name`, `org_level`, `org_address`, `org_path_code`, `org_path_name`, `lng`, `lat`) VALUES (615102001, '615102', 40, '610102001000', '西一路街道', 4, '陕西省西安市新城区西一路街道', '61-6151-615102-615102001', '陕西省-西安市-新城区-西一路街道', 8.958216, 34.2617);
+INSERT INTO `sys_org`(`id`, `parent_id`, `org_type`, `org_code`, `org_name`, `org_level`, `org_address`, `org_path_code`, `org_path_name`, `lng`, `lat`) VALUES (615102001001, '615102001', 50, '610102001001', '民乐社区居委会', 51, '陕西省西安市新城区西一路街道民乐社区居委会', '61-6151-615102-615102001-615102001001', '陕西省-西安市-新城区-西一路街道-民乐社区居委会', 8.958216, 34.263764);
 
 
 

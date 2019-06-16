@@ -10,12 +10,14 @@
 				<form id="formId">
 					<div class="select-list">
 						<ul>
-							<li>
-								上级机构：<input type="text" name="parentId"/>
-							</li>
 
 							<li>
-								机构类型：<input type="text" name="orgType"/>
+								机构类型：
+								<select name="orgType" th:with="type=${@dict.getType('sys_org_type')}">
+									<option value="">所有</option>
+									<option th:each="dict : ${type}" th:text="${dict.dictLabel}"
+											th:value="${dict.dictValue}"></option>
+								</select>
 							</li>
 
 							<li>
@@ -34,21 +36,6 @@
 								机构地址：<input type="text" name="orgAdress"/>
 							</li>
 
-							<li>
-								机构全路径ID：<input type="text" name="orgPathCode"/>
-							</li>
-
-							<li>
-								机构全路径名称：<input type="text" name="orgPathName"/>
-							</li>
-
-							<li>
-								经度：<input type="text" name="lng"/>
-							</li>
-
-							<li>
-								纬度：<input type="text" name="lat"/>
-							</li>
 
 							<li>
 								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
@@ -82,7 +69,7 @@
     <script th:inline="javascript">
         var editFlag = [[${@permission.hasPermi('sys:sysOrg:edit')}]];
         var removeFlag = [[${@permission.hasPermi('sys:sysOrg:remove')}]];
-        var prefix = ctx + "sys/sysOrg";
+        var prefix = ctx + "system/org";
 
         $(function() {
             var options = {
@@ -128,18 +115,8 @@
 					sortable: true
 				},
 				{
-					field : 'orgAdress', 
+					field : 'orgAddress',
 					title : '机构地址',
-					sortable: true
-				},
-				{
-					field : 'orgPathCode', 
-					title : '机构全路径ID',
-					sortable: true
-				},
-				{
-					field : 'orgPathName', 
-					title : '机构全路径名称',
 					sortable: true
 				},
 				{

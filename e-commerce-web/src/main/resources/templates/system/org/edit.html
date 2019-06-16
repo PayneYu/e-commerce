@@ -15,7 +15,9 @@
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">机构类型：</label>
 				<div class="col-sm-8">
-					<input id="orgType" name="orgType" th:field="*{orgType}" class="form-control" type="text">
+					<select id="orgType" class="form-control m-b" th:with="type=${@dict.getType('sys_org_type')}">
+						<option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}" th:field="*{orgType}"></option>
+					</select>
 				</div>
 			</div>
 			<div class="form-group">	
@@ -39,7 +41,7 @@
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">机构地址：</label>
 				<div class="col-sm-8">
-					<input id="orgAdress" name="orgAdress" th:field="*{orgAdress}" class="form-control" type="text">
+					<input id="orgAddress" name="orgAddress" th:field="*{orgAddress}" class="form-control" type="text">
 				</div>
 			</div>
 			<div class="form-group">	
@@ -70,7 +72,7 @@
     </div>
     <div th:include="include::footer"></div>
     <script type="text/javascript">
-		var prefix = ctx + "sys/sysOrg";
+        var prefix = ctx + "system/org"
 		$("#form-sysOrg-edit").validate({
 			rules:{
 				xxxx:{

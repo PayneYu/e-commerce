@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS `sys_org` (
   `org_code` varchar(40) comment '机构编码',
   `org_name`	varchar(100)  comment '机构名称',
   `org_level` int(11) comment '机构级别',
-  `org_adress` varchar(255) comment '机构地址',
+  `org_address` varchar(255) comment '机构地址',
   `org_path_code` varchar(255) comment '机构全路径ID',
   `org_path_name` varchar(255) comment '机构全路径名称',
   `lng` double NULL comment '经度',

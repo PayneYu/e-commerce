@@ -11,7 +11,7 @@
         <result property="orgCode" column="org_code"/>
         <result property="orgName" column="org_name"/>
         <result property="orgLevel" column="org_level"/>
-        <result property="orgAdress" column="org_adress"/>
+        <result property="orgAddress" column="org_address"/>
         <result property="orgPathCode" column="org_path_code"/>
         <result property="orgPathName" column="org_path_name"/>
         <result property="lng" column="lng"/>
@@ -19,7 +19,7 @@
     </resultMap>
 
     <sql id="selectSysOrgVo">
-        select t.id, t.parent_id,t.org_type,t.org_code,t.org_name,t.org_level,t.org_adress,t.org_path_code,t.org_path_name,t.lng,t.lat from sys_org t
+        select t.id, t.parent_id,t.org_type,t.org_code,t.org_name,t.org_level,t.org_address,t.org_path_code,t.org_path_name,t.lng,t.lat from sys_org t
     </sql>
 
     <select id="selectSysOrgList" parameterType="com.ecommerce.framework.sys.entity.SysOrg" resultMap="SysOrgResult">
@@ -31,7 +31,7 @@
             <if test="orgCode != null  and orgCode != '' ">and org_code = #{orgCode}</if>
             <if test="orgName != null  and orgName != '' ">and org_name = #{orgName}</if>
             <if test="orgLevel != null ">and org_level = #{orgLevel}</if>
-            <if test="orgAdress != null  and orgAdress != '' ">and org_adress = #{orgAdress}</if>
+            <if test="orgAddress != null  and orgAddress != '' ">and org_address = #{orgAddress}</if>
             <if test="orgPathCode != null  and orgPathCode != '' ">and org_path_code = #{orgPathCode}</if>
             <if test="orgPathName != null  and orgPathName != '' ">and org_path_name = #{orgPathName}</if>
             <if test="lng != null ">and lng = #{lng}</if>

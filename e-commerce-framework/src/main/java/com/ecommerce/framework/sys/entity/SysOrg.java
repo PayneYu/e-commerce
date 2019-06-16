@@ -49,7 +49,7 @@ public class SysOrg extends BaseEntity {
    * orgAdress 机构地址
    */
   @Excel(name = "机构地址")
-  private String orgAdress;
+  private String orgAddress;
   /**
    * orgPathCode 机构全路径ID
    */
