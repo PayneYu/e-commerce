@@ -1,9 +1,12 @@
 package com.ecommerce.framework.shiro.service;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
-import javax.annotation.PostConstruct;
-
+import com.ecommerce.common.constant.Constants;
+import com.ecommerce.common.exception.user.UserPasswordNotMatchException;
+import com.ecommerce.common.exception.user.UserPasswordRetryLimitExceedException;
+import com.ecommerce.common.utils.MessageUtils;
+import com.ecommerce.framework.manager.AsyncManager;
+import com.ecommerce.framework.manager.factory.AsyncFactory;
+import com.ecommerce.framework.sys.entity.SysUser;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.crypto.hash.Md5Hash;
@@ -11,9 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.ecommerce.common.exception.user.UserPasswordNotMatchException;
-import com.ecommerce.common.exception.user.UserPasswordRetryLimitExceedException;
-import com.ecommerce.framework.sys.entity.SysUser;
+import javax.annotation.PostConstruct;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 登录密码方法
@@ -45,16 +47,14 @@ public class SysPasswordService {
             loginRecordCache.put(loginName, retryCount);
         }
         if (retryCount.incrementAndGet() > Integer.valueOf(maxRetryCount).intValue()) {
-            // TODO
-            // AsyncManager.me().execute(AsyncFactory.recordLogininfor(loginName, Constants.LOGIN_FAIL,
-            // MessageUtils.message("user.password.retry.limit.exceed", maxRetryCount)));
+             AsyncManager.me().execute(AsyncFactory.recordLoginInfo(loginName, Constants.LOGIN_FAIL,
+             MessageUtils.message("user.password.retry.limit.exceed", maxRetryCount)));
             throw new UserPasswordRetryLimitExceedException(Integer.valueOf(maxRetryCount).intValue());
         }
 
         if (!matches(user, password)) {
-            // TODO
-            // AsyncManager.me().execute(AsyncFactory.recordLogininfor(loginName, Constants.LOGIN_FAIL,
-            // MessageUtils.message("user.password.retry.limit.count", retryCount)));
+             AsyncManager.me().execute(AsyncFactory.recordLoginInfo(loginName, Constants.LOGIN_FAIL,
+             MessageUtils.message("user.password.retry.limit.count", retryCount)));
             loginRecordCache.put(loginName, retryCount);
             throw new UserPasswordNotMatchException();
         } else {
