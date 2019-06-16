@@ -238,3 +238,17 @@ CREATE TABLE IF NOT EXISTS `sys_job_log` (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci comment = '定时任务调度日志表';
 
 
+CREATE TABLE IF NOT EXISTS `sys_notice` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT comment '主键',
+  `notice_title` varchar(64) comment '公告标题',
+  `notice_type` char(1) default '0' comment '公告类型（1通知 2公告）',
+  `notice_content` varchar(2000) comment '公告内容',
+  `status` char(1) default '0' comment '状态（0正常 1停用）',
+  `create_by` varchar(64) comment '创建者',
+  `create_time` TIMESTAMP(6)  comment '创建时间',
+  `update_by` varchar(64) comment '更新者',
+  `update_time` TIMESTAMP(6) comment '更新时间',
+  primary key (id)
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci comment = '通知公告表';
+
+
