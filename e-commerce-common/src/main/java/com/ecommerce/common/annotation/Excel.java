@@ -73,7 +73,7 @@ public @interface Excel {
      */
     Type type() default Type.ALL;
 
-    public enum Type {
+    enum Type {
         ALL(0), EXPORT(1), IMPORT(2);
         private final int value;
 

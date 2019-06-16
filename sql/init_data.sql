@@ -215,7 +215,7 @@ insert into sys_dict_data values(50, 6,'居委会','50','sys_org_type','','','N'
 insert into sys_role values(1, '管理员',   'admin',  1, 1, '0', 'admin', now(), 'admin', now(), '管理员');
 insert into sys_role values(2, '普通角色', 'common', 2, 2, '0', 'admin', now(), 'admin', now(), '普通角色');
 
-
+INSERT INTO `sys_org`(`id`, `parent_id`, `org_type`, `org_code`, `org_name`, `org_level`, `org_address`, `org_path_code`) VALUES (0, NULL,1,'0', '管理机构', 0,NULL,'0');
 INSERT INTO `sys_org`(`id`, `parent_id`, `org_type`, `org_code`, `org_name`, `org_level`, `org_address`, `org_path_code`, `org_path_name`, `lng`, `lat`) VALUES (61, NULL,10, '610000000000', '陕西省', 1, '陕西省', '61', '陕西省', 8.948024, 34.263161);
 INSERT INTO `sys_org`(`id`, `parent_id`, `org_type`, `org_code`, `org_name`, `org_level`, `org_address`, `org_path_code`, `org_path_name`, `lng`, `lat`) VALUES (6151, '61', 20, '610100000000', '西安市', 2, '陕西省西安市', '61-6151', '陕西省-西安市', 8.948024, 34.263161);
 INSERT INTO `sys_org`(`id`, `parent_id`, `org_type`, `org_code`, `org_name`, `org_level`, `org_address`, `org_path_code`, `org_path_name`, `lng`, `lat`) VALUES (615102, '6151', 30, '610102000000', '新城区', 3, '陕西省西安市新城区', '61-6151-615102', '陕西省-西安市-新城区', 8.960747, 34.266451);

@@ -7,7 +7,11 @@ import com.ecommerce.framework.sys.service.ISysOrgService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 /**
  * 机构 服务层实现
  * 
@@ -30,5 +34,35 @@ public class SysOrgServiceImpl extends BaseServiceImpl<SysOrg,SysOrgMapper> impl
 	    return sysOrgMapper.selectSysOrgList(sysOrg);
 	}
 
-	
+	@Override
+	public List<Map<String, Object>> selectOrgTree(SysOrg sysOrg) {
+		List<Map<String, Object>> trees = new ArrayList<Map<String, Object>>();
+		List<SysOrg> deptList = sysOrgMapper.selectSysOrgList(sysOrg);
+		trees = getTrees(deptList, false, null);
+		return trees;
+	}
+
+    /**
+     * 对象转机构树
+     *
+     */
+   public List<Map<String, Object>> getTrees(List<SysOrg> list, boolean isCheck, List<String> roleOrgList) {
+        List<Map<String, Object>> trees = new ArrayList<Map<String, Object>>();
+	   list.forEach(org->{
+		   Map<String, Object> orgMap = new HashMap<String, Object>();
+		   orgMap.put("id", org.getId());
+		   orgMap.put("pId", org.getParentId());
+		   orgMap.put("name", org.getOrgName());
+		   orgMap.put("title", org.getOrgName());
+		   if (isCheck) {
+			   orgMap.put("checked", roleOrgList.contains(org.getId() + org.getOrgName()));
+		   } else {
+			   orgMap.put("checked", false);
+		   }
+		   trees.add(orgMap);
+	   });
+        return trees;
+    }
+
+
 }

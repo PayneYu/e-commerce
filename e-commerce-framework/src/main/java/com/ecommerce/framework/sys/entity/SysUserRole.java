@@ -1,10 +1,10 @@
 package com.ecommerce.framework.sys.entity;
 
-import javax.persistence.Table;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import javax.persistence.Table;
 
 /**
  * 用户和角色关联 sys_user_role
@@ -21,5 +21,7 @@ public class SysUserRole {
 
     /** 角色ID */
     private Long roleId;
+
+    public final static String PROPERTY_USER_ID = "userId";
 
 }

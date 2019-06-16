@@ -1,24 +1,28 @@
 package com.ecommerce.framework.sys.service.impl;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
+import com.ecommerce.common.enums.UserStatus;
 import com.ecommerce.common.exception.BusinessException;
 import com.ecommerce.common.support.Convert;
+import com.ecommerce.common.utils.CollectionUtils;
 import com.ecommerce.common.utils.Md5Utils;
 import com.ecommerce.common.utils.StringUtils;
 import com.ecommerce.framework.base.service.impl.BaseServiceImpl;
 import com.ecommerce.framework.sys.entity.SysRole;
 import com.ecommerce.framework.sys.entity.SysUser;
+import com.ecommerce.framework.sys.entity.SysUserRole;
 import com.ecommerce.framework.sys.mapper.SysRoleMapper;
 import com.ecommerce.framework.sys.mapper.SysUserMapper;
+import com.ecommerce.framework.sys.mapper.SysUserRoleMapper;
 import com.ecommerce.framework.sys.service.ISysConfigService;
 import com.ecommerce.framework.sys.service.ISysUserService;
-
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 用户 业务层处理
@@ -36,7 +40,59 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, SysUserMapper> 
     private SysRoleMapper roleMapper;
 
     @Autowired
+    private SysUserRoleMapper userRoleMapper;
+
+
+    @Autowired
     private ISysConfigService configService;
+
+    @Override
+    public SysUser selectById(Long id) {
+        return userMapper.selectById(id);
+    }
+
+    @Override
+    @Transactional
+    public SysUser insert(SysUser sysUser) {
+        sysUser.setDelFlag(UserStatus.OK.getCode());
+        super.insert(sysUser);
+        // 新增用户与角色管理
+        insertUserRole(sysUser);
+        return sysUser;
+    }
+
+
+    @Override
+    @Transactional
+    public int update(SysUser sysUser) {
+        // 删除用户与角色关联
+        userRoleMapper.deleteByCriteria(SysUserRole.PROPERTY_USER_ID,sysUser.getId());
+        // 新增用户与角色管理
+        insertUserRole(sysUser);
+        return super.update(sysUser);
+    }
+
+    /**
+     * 新增用户角色信息
+     *
+     * @param user 用户对象
+     */
+    public void insertUserRole(SysUser user) {
+        Long[] roles = user.getRoleIds();
+        if (StringUtils.isNotNull(roles)) {
+            // 新增用户与角色管理
+            List<SysUserRole> list = new ArrayList<>();
+            for (Long roleId : roles) {
+                SysUserRole ur = new SysUserRole();
+                ur.setUserId(user.getId());
+                ur.setRoleId(roleId);
+                list.add(ur);
+            }
+            if(CollectionUtils.isNotEmpty(list)){
+                userRoleMapper.insertList(list);
+            }
+        }
+    }
 
     /**
      * 修改用户个人详细信息
@@ -64,7 +120,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, SysUserMapper> 
      */
     @Override
     public List<SysUser> selectUserList(SysUser user) {
-        return userMapper.select(user);
+        return userMapper.selectUserList(user);
     }
 
     /**

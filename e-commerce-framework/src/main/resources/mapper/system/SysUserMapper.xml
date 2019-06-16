@@ -6,6 +6,8 @@
 
     <resultMap type="com.ecommerce.framework.sys.entity.SysUser" id="SysUserResult">
         <id property="id" column="id"/>
+        <result property="orgId" column="org_id"/>
+        <result property="orgName" column="org_name"/>
         <result property="loginName" column="login_name"/>
         <result property="userName" column="user_name"/>
         <result property="email" column="email"/>
@@ -33,6 +35,39 @@
         <result property="dataScope" column="data_scope"/>
         <result property="status" column="role_status"/>
     </resultMap>
+
+    <sql id="selectSysUserVo">
+        select u.id, u.org_id, u.login_name, u.user_name, u.email, u.phone_number, u.password, u.sex, u.avatar, u.salt, u.status, u.del_flag, u.login_ip, u.login_date, u.create_by, u.create_time, u.remark, o.org_name from sys_user u left join sys_org o on u.org_id = o.id
+    </sql>
+
+    <select id="selectById" resultMap="SysUserResult">
+        <include refid="selectSysUserVo"/> WHERE u.id = #{id}
+    </select>
+
+    <select id="selectUserList" parameterType="com.ecommerce.framework.sys.entity.SysUser" resultMap="SysUserResult">
+        <include refid="selectSysUserVo"/>
+        where u.del_flag = '0'
+        <if test="loginName != null and loginName != ''">
+            AND u.login_name like concat('%', #{loginName}, '%')
+        </if>
+        <if test="status != null and status != ''">
+            AND u.status = #{status}
+        </if>
+        <if test="phoneNumber != null and phoneNumber != ''">
+            AND u.phone_number like concat('%', #{phoneNumber}, '%')
+        </if>
+        <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+            AND date_format(u.create_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+        </if>
+        <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+            AND date_format(u.create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+        </if>
+        <if test="orgId != null">
+            AND (u.org_id = #{orgId} OR u.org_id IN ( SELECT t.id FROM sys_org t WHERE t.id like CONCAT('${orgId}','%' )))
+        </if>
+        <!-- 数据范围过滤 -->
+        ${params.dataScope}
+    </select>
 
     <update id="updateUser" parameterType="com.ecommerce.framework.sys.entity.SysUser">
         update sys_user

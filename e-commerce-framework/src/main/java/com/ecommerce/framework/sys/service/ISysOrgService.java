@@ -3,6 +3,7 @@ package com.ecommerce.framework.sys.service;
 import com.ecommerce.framework.base.service.BaseService;
 import com.ecommerce.framework.sys.entity.SysOrg;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 机构 服务层
@@ -17,5 +18,10 @@ public interface ISysOrgService extends BaseService <SysOrg> {
      * @param sysOrg 机构信息
      * @return 机构集合
      */
-	public List<SysOrg> selectSysOrgList(SysOrg sysOrg);
+	List<SysOrg> selectSysOrgList(SysOrg sysOrg);
+
+	/**
+	 * 查询Org管理树
+	 */
+	List<Map<String, Object>> selectOrgTree(SysOrg sysOrg);
 }

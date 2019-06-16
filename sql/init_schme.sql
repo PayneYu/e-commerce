@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS `sys_org` (
 
 CREATE TABLE IF NOT EXISTS `sys_user` (
   `id` BIGINT NOT NULL AUTO_INCREMENT comment '用户ID',
+  `org_id` BIGINT 	comment '区划ID',
   `login_name` varchar(30) 	not null comment '登录账号',
   `user_name` varchar(30) not null comment '用户昵称',
   `user_type` varchar(2) default '00' comment '用户类型（00系统用户）',
@@ -34,7 +35,8 @@ CREATE TABLE IF NOT EXISTS `sys_user` (
   `update_by` varchar(64) comment '更新者',
   `update_time` TIMESTAMP(6) comment '更新时间',
   `remark` varchar(500) comment '备注',
-  primary key (id)
+  primary key (id),
+  CONSTRAINT `FK_sys_user_org_id` FOREIGN KEY (`org_id`) REFERENCES `sys_org` (`id`)
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci comment = '用户信息表';
 
 CREATE TABLE IF NOT EXISTS `sys_role` (

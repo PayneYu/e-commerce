@@ -1,14 +1,5 @@
 package com.ecommerce.web.system.controller;
 
-import java.util.List;
-
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
 import com.ecommerce.common.annotation.Log;
 import com.ecommerce.common.base.AjaxResult;
 import com.ecommerce.common.enums.BusinessType;
@@ -18,9 +9,18 @@ import com.ecommerce.common.utils.poi.ExcelUtil;
 import com.ecommerce.framework.base.controller.BaseController;
 import com.ecommerce.framework.shiro.service.SysPasswordService;
 import com.ecommerce.framework.sys.entity.SysUser;
+import com.ecommerce.framework.sys.service.ISysOrgService;
 import com.ecommerce.framework.sys.service.ISysRoleService;
 import com.ecommerce.framework.sys.service.ISysUserService;
 import com.ecommerce.framework.util.ShiroUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * 用户信息
@@ -40,6 +40,9 @@ public class SysUserController extends BaseController {
 
     @Autowired
     private SysPasswordService passwordService;
+
+    @Autowired
+    private ISysOrgService orgService;
 
     @RequiresPermissions("system:user:view")
     @GetMapping()
@@ -91,6 +94,17 @@ public class SysUserController extends BaseController {
      */
     @GetMapping("/add")
     public String add(ModelMap mmap) {
+        mmap.put("roles", roleService.selectAll());
+        return prefix + "/add";
+    }
+    /**
+     * 新增用户
+     */
+    @GetMapping("/add/{orgId}")
+    public String addByOrgId(@PathVariable("orgId") Long orgId,ModelMap mmap) {
+        if(orgId!=null){
+            mmap.put("org", orgService.selectById(orgId));
+        }
         mmap.put("roles", roleService.selectAll());
         return prefix + "/add";
     }

@@ -5,7 +5,7 @@
 <body class="white-bg">
 <div class="wrapper wrapper-content animated fadeInRight ibox-content">
     <form class="form-horizontal m" id="form-user-add">
-        <input name="deptId" type="hidden" id="treeId"/>
+        <input name="orgId" type="hidden" id="treeId" th:value="${org.id}"/>
         <div class="form-group">
             <label class="col-sm-3 control-label ">登录名称：</label>
             <div class="col-sm-8">
@@ -13,10 +13,10 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label">部门名称：</label>
+            <label class="col-sm-3 control-label">机构名称：</label>
             <div class="col-sm-8">
-                <input class="form-control" type="text" name="deptName" onclick="selectDeptTree()" readonly="true"
-                       id="treeName">
+                <input class="form-control" type="text" name="orgName" onclick="selectDeptTree()"
+                       id="treeName" th:value="${org.orgName}">
             </div>
         </div>
         <div class="form-group">
@@ -41,7 +41,7 @@
         <div class="form-group">
             <label class="col-sm-3 control-label">手机：</label>
             <div class="col-sm-8">
-                <input class="form-control" type="text" name="phonenumber" id="phonenumber">
+                <input class="form-control" type="text" name="phoneNumber" id="phoneNumber">
             </div>
         </div>
         <div class="form-group">
@@ -65,20 +65,10 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label">岗位：</label>
-            <div class="col-sm-8">
-                <select id="post" name="post" class="form-control select2-hidden-accessible" multiple="">
-                    <option th:each="post:${posts}" th:value="${post.postId}" th:text="${post.postName}"
-                            th:disabled="${post.status == '1'}"></option>
-                </select>
-
-            </div>
-        </div>
-        <div class="form-group">
             <label class="col-sm-3 control-label">角色：</label>
             <div class="col-sm-8">
                 <label th:each="role:${roles}" class="check-box">
-                    <input name="role" type="checkbox" th:value="${role.roleId}" th:text="${role.roleName}"
+                    <input name="role" type="checkbox" th:value="${role.id}" th:text="${role.roleName}"
                            th:disabled="${role.status == '1'}">
                 </label>
             </div>
@@ -136,7 +126,7 @@
                     }
                 }
             },
-            phonenumber: {
+            phoneNumber: {
                 required: true,
                 isPhone: true,
                 remote: {
@@ -145,7 +135,7 @@
                     dataType: "json",
                     data: {
                         name: function () {
-                            return $.common.trim($("#phonenumber").val());
+                            return $.common.trim($("#phoneNumber").val());
                         }
                     },
                     dataFilter: function (data, type) {
@@ -161,7 +151,7 @@
             "email": {
                 remote: "Email已经存在"
             },
-            "phonenumber": {
+            "phoneNumber": {
                 remote: "手机号码已经存在"
             }
         }
@@ -174,13 +164,13 @@
     }
 
     function add() {
-        var userId = $("input[name='userId']").val();
-        var deptId = $("input[name='deptId']").val();
+        var id = $("input[name='id']").val();
+        var orgId = $("input[name='orgId']").val();
         var loginName = $("input[name='loginName']").val();
         var userName = $("input[name='userName']").val();
         var password = $("input[name='password']").val();
         var email = $("input[name='email']").val();
-        var phonenumber = $("input[name='phonenumber']").val();
+        var phoneNumber = $("input[name='phoneNumber']").val();
         var sex = $("#sex option:selected").val();
         var status = $("input[name='status']").is(':checked') == true ? 0 : 1;
         var roleIds = $.form.selectCheckeds("role");
@@ -190,13 +180,13 @@
             type: "POST",
             url: ctx + "system/user/add",
             data: {
-                "userId": userId,
-                "deptId": deptId,
+                "id": id,
+                "orgId": orgId,
                 "loginName": loginName,
                 "userName": userName,
                 "password": password,
                 "email": email,
-                "phonenumber": phonenumber,
+                "phoneNumber": phoneNumber,
                 "sex": sex,
                 "status": status,
                 "roleIds": roleIds,
@@ -212,15 +202,15 @@
         });
     }
 
-    /*用户管理-新增-选择部门树*/
+    /*用户管理-新增-选择机构树*/
     function selectDeptTree() {
         var treeId = $("#treeId").val();
-        var deptId = $.common.isEmpty(treeId) ? "100" : $("#treeId").val();
-        var url = ctx + "system/dept/selectDeptTree/" + deptId;
+        var orgId = $.common.isEmpty(treeId) ? "61" : $("#treeId").val();
+        var url = ctx + "system/org/selectOrgTree/" + orgId;
         var options = {
-            title: '选择部门',
+            title: '选择机构',
             width: "380",
-            url: ctx + "system/dept/selectDeptTree/" + deptId,
+            url: ctx + "system/org/selectOrgTree/" + orgId,
             callBack: doSubmit
         };
         $.modal.openOptions(options);
@@ -228,12 +218,10 @@
 
     function doSubmit(index, layero) {
         var tree = layero.find("iframe")[0].contentWindow.$._tree;
-        if ($.tree.notAllowParents(tree)) {
-            var body = layer.getChildFrame('body', index);
-            $("#treeId").val(body.find('#treeId').val());
-            $("#treeName").val(body.find('#treeName').val());
-            layer.close(index);
-        }
+        var body = layer.getChildFrame('body', index);
+        $("#treeId").val(body.find('#treeId').val());
+        $("#treeName").val(body.find('#treeName').val());
+        layer.close(index);
     }
 </script>
 </body>

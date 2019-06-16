@@ -1,6 +1,5 @@
 /**
  * 通用js方法封装处理
- * Copyright (c) 2019 huizhe yu
  */
 (function ($) {
     $.extend({
@@ -115,7 +114,9 @@
                     var search = {};
                     $.each($("#" + currentId).serializeArray(), function (i, field) {
                         var value = field.value;
+                        if(value!=null&&value!=""){
                             search[field.name] = value;
+                        }
                     });
                     search.pageSize = params.limit;
                     search.pageNum = params.offset / params.limit + 1;

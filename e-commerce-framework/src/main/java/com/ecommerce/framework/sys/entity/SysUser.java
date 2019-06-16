@@ -9,6 +9,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +27,9 @@ public class SysUser extends UpdateEntity {
     /** 登录名称 */
     @Excel(name = "登录名称")
     private String loginName;
+
+    @Excel(name = "机构ID", type = Type.IMPORT)
+    private Long orgId;
 
     /** 用户名称 */
     @Excel(name = "用户名称")
@@ -69,13 +73,14 @@ public class SysUser extends UpdateEntity {
     @Excel(name = "备注")
     private String remark;
 
+    @Transient
+    @Excel(name = "机构名称")
+    private String orgName;
+
     private List<SysRole> roles;
 
     /** 角色组 */
     private Long[] roleIds;
-
-    /** 岗位组 */
-    private Long[] postIds;
 
     public static boolean isAdmin(Long userId) {
         return userId != null && 1L == userId;

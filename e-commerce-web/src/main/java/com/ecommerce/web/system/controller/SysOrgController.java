@@ -15,6 +15,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 机构 信息操作处理
@@ -78,6 +79,7 @@ public class SysOrgController extends BaseController {
 	@PostMapping("/add")
 	@ResponseBody
 	public AjaxResult addSave(SysOrg sysOrg) {
+		sysOrg.setId(Long.valueOf(sysOrg.getOrgCode()));
 		sysOrgService.insert(sysOrg);
 		return success();
 	}
@@ -113,5 +115,24 @@ public class SysOrgController extends BaseController {
 		sysOrgService.deleteByIds(ids);
         return success();
 	}
+
+	/**
+	 * 加载区划列表树
+	 */
+	@GetMapping("/treeData")
+	@ResponseBody
+	public List<Map<String, Object>> treeData(){
+		List<Map<String, Object>> tree = sysOrgService.selectOrgTree(new SysOrg());
+		return tree;
+	}
+
+	/**
+	 * 选择部门树
+	 */
+	@GetMapping("/selectOrgTree/{orgId}")
+    public String selectDeptTree(@PathVariable("orgId") Long orgId, ModelMap mmap) {
+        mmap.put("org", sysOrgService.selectById(orgId));
+        return prefix + "/tree";
+    }
 	
 }
