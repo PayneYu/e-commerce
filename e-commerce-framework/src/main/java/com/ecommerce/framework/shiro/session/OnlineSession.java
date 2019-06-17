@@ -18,8 +18,8 @@ public class OnlineSession extends SimpleSession {
     /** 用户名称 */
     private String loginName;
 
-    /** 部门名称 */
-    private String deptName;
+    /** 机构名称 */
+    private String orgName;
 
     /** 登录IP地址 */
     private String host;
@@ -77,13 +77,12 @@ public class OnlineSession extends SimpleSession {
     public void setLoginName(String loginName) {
         this.loginName = loginName;
     }
-
-    public String getDeptName() {
-        return deptName;
+    public String getOrgName() {
+        return orgName;
     }
 
-    public void setDeptName(String deptName) {
-        this.deptName = deptName;
+    public void setOrgName(String orgName) {
+        this.orgName = orgName;
     }
 
     public OnlineStatus getStatus() {

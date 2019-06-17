@@ -1,16 +1,19 @@
 package com.ecommerce.framework.shiro.web.filter;
 
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-
+import com.ecommerce.common.constant.Constants;
+import com.ecommerce.common.utils.MessageUtils;
+import com.ecommerce.common.utils.StringUtils;
+import com.ecommerce.framework.manager.AsyncManager;
+import com.ecommerce.framework.manager.factory.AsyncFactory;
+import com.ecommerce.framework.sys.entity.SysUser;
+import com.ecommerce.framework.util.ShiroUtils;
 import org.apache.shiro.session.SessionException;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ecommerce.common.utils.StringUtils;
-import com.ecommerce.framework.sys.entity.SysUser;
-import com.ecommerce.framework.util.ShiroUtils;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 
 /**
  * 退出过滤器
@@ -43,9 +46,8 @@ public class LogoutFilter extends org.apache.shiro.web.filter.authc.LogoutFilter
                 if (StringUtils.isNotNull(user)) {
                     String loginName = user.getLoginName();
                     // 记录用户退出日志
-                    // TODO
-                    // AsyncManager.me().execute(AsyncFactory.recordLogininfor(loginName, Constants.LOGOUT,
-                    // MessageUtils.message("user.logout.success")));
+                     AsyncManager.me().execute(AsyncFactory.recordLoginInfo(loginName, Constants.LOGOUT,
+                     MessageUtils.message("user.logout.success")));
                 }
                 // 退出登录
                 subject.logout();

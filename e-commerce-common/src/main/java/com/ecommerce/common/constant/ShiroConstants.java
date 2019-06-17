@@ -5,7 +5,7 @@ package com.ecommerce.common.constant;
  * 
  * @author huizhe yu
  */
-public interface ShiroConstants {
+public class ShiroConstants {
     /**
      * 当前登录的用户
      */
@@ -19,22 +19,22 @@ public interface ShiroConstants {
     /**
      * 消息key
      */
-    public static String MESSAGE = "message";
+    public static final String MESSAGE = "message";
 
     /**
      * 错误key
      */
-    public static String ERROR = "errorMsg";
+    public static final String ERROR = "errorMsg";
 
     /**
      * 编码格式
      */
-    public static String ENCODING = "UTF-8";
+    public static final String ENCODING = "UTF-8";
 
     /**
      * 当前在线会话
      */
-    public String ONLINE_SESSION = "online_session";
+    public static final String ONLINE_SESSION = "online_session";
 
     /**
      * 验证码key

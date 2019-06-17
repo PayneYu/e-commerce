@@ -5,7 +5,7 @@ package com.ecommerce.common.constant;
  * 
  * @author huizhe yu
  */
-public interface ScheduleConstants {
+public class ScheduleConstants {
     public static final String TASK_CLASS_NAME = "__TASK_CLASS_NAME__";
 
     public static final String TASK_PROPERTIES = "__TASK_PROPERTIES__";

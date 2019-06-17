@@ -1,10 +1,11 @@
 package com.ecommerce.framework.shiro.web.filter.online;
 
-import java.io.IOException;
-
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-
+import com.ecommerce.common.constant.ShiroConstants;
+import com.ecommerce.common.enums.OnlineStatus;
+import com.ecommerce.framework.shiro.session.OnlineSession;
+import com.ecommerce.framework.shiro.session.OnlineSessionDAO;
+import com.ecommerce.framework.sys.entity.SysUser;
+import com.ecommerce.framework.util.ShiroUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.AccessControlFilter;
@@ -12,12 +13,9 @@ import org.apache.shiro.web.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
-import com.ecommerce.common.constant.ShiroConstants;
-import com.ecommerce.common.enums.OnlineStatus;
-import com.ecommerce.framework.shiro.session.OnlineSession;
-import com.ecommerce.framework.shiro.session.OnlineSessionDAO;
-import com.ecommerce.framework.sys.entity.SysUser;
-import com.ecommerce.framework.util.ShiroUtils;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import java.io.IOException;
 
 /**
  * 自定义访问控制
@@ -55,8 +53,7 @@ public class OnlineSessionFilter extends AccessControlFilter {
                 if (user != null) {
                     onlineSession.setUserId(user.getId());
                     onlineSession.setLoginName(user.getLoginName());
-                    // TODO
-                    // onlineSession.setDeptName(user.getDept().getDeptName());
+                    onlineSession.setOrgName(user.getOrgName());
                     onlineSession.markAttributeChanged();
                 }
             }
