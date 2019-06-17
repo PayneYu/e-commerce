@@ -41,6 +41,7 @@ public class AsyncFactory {
             @Override
             public void run() {
                 SysUserOnline online = new SysUserOnline();
+                online.setStartTime(new Date());
                 online.setSessionId(String.valueOf(session.getId()));
                 online.setLoginName(session.getLoginName());
                 online.setStartTime(session.getStartTimestamp());
@@ -51,7 +52,7 @@ public class AsyncFactory {
                 online.setBrowser(session.getBrowser());
                 online.setOs(session.getOs());
                 online.setStatus(session.getStatus());
-                SpringContextHolder.getBean(ISysUserOnlineService.class).insert(online);
+                SpringContextHolder.getBean(ISysUserOnlineService.class).saveOnline(online);
 
             }
         };
