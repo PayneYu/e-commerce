@@ -1,17 +1,16 @@
 package com.ecommerce.web.system.controller;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-
 import com.ecommerce.common.config.Global;
 import com.ecommerce.framework.base.controller.BaseController;
 import com.ecommerce.framework.sys.entity.SysMenu;
 import com.ecommerce.framework.sys.entity.SysUser;
 import com.ecommerce.framework.sys.service.ISysMenuService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.List;
 
 /**
  * 首页 业务处理
@@ -39,7 +38,7 @@ public class SysIndexController extends BaseController {
     // 系统介绍
     @GetMapping("/system/main")
     public String main(ModelMap mmap) {
-        mmap.put("version", Global.getVersion());
+        mmap.put("userName", getSysUser().getUserName());
         return "main";
     }
 }
