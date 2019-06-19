@@ -1,12 +1,11 @@
 package com.ecommerce.framework.web.service;
 
-import java.util.List;
-
+import com.ecommerce.framework.sys.entity.SysDictData;
+import com.ecommerce.framework.sys.service.ISysDictDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ecommerce.framework.sys.entity.SysDictData;
-import com.ecommerce.framework.sys.service.ISysDictDataService;
+import java.util.List;
 
 /**
  * html调用 thymeleaf 实现字典读取

@@ -1,6 +1,7 @@
 package com.ecommerce.framework.sys.service.impl;
 
 import com.ecommerce.framework.base.service.impl.BaseServiceImpl;
+import com.ecommerce.framework.cache.annotation.CacheGet;
 import com.ecommerce.framework.sys.entity.SysDictData;
 import com.ecommerce.framework.sys.mapper.SysDictDataMapper;
 import com.ecommerce.framework.sys.service.ISysDictDataService;
@@ -40,8 +41,9 @@ public class SysDictDataServiceImpl extends BaseServiceImpl<SysDictData, SysDict
      * @return 字典数据集合信息
      */
     @Override
+    @CacheGet
     public List<SysDictData> selectDictDataByType(String dictType) {
-        return sysDictDataMapper.selectByCriteria(SysDictData.PROPERTY_DICT_TYPE, dictType);
+        return this.selectByCriteria(SysDictData.PROPERTY_DICT_TYPE, dictType);
     }
 
     /**
