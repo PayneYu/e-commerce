@@ -6,7 +6,6 @@ import com.ecommerce.common.enums.BusinessType;
 import com.ecommerce.common.page.TableDataInfo;
 import com.ecommerce.common.utils.poi.ExcelUtil;
 import com.ecommerce.framework.base.controller.BaseController;
-import com.ecommerce.framework.cache.annotation.CachePage;
 import com.ecommerce.framework.sys.entity.SysOrg;
 import com.ecommerce.framework.sys.service.ISysOrgService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -45,7 +44,6 @@ public class SysOrgController extends BaseController {
 	@RequiresPermissions("sys:sysOrg:list")
 	@PostMapping("/list")
 	@ResponseBody
-	@CachePage(cacheName = "SysOrgServiceImpl")
 	public TableDataInfo list(SysOrg sysOrg) {
 		startPage();
         List<SysOrg> list = sysOrgService.selectSysOrgList(sysOrg);

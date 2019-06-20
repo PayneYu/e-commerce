@@ -15,8 +15,8 @@ values(2,'系统监控',null,'2','#','M','0','','fa fa-video-camera','admin', no
 insert into sys_menu(id,menu_name,parent_id,order_num,url,menu_type,visible,perms,icon,create_by,create_time,update_by,update_time,remark)
 values(3,'系统工具',null,'3','#','M','0','','fa fa-bars','admin', now(),'admin', now(),'系统工具目录');
 -- 二级菜单
-insert into sys_menu (menu_name, parent_id, order_num, url,menu_type, visible, perms, icon, create_by, create_time, update_by, update_time, remark)
-values('机构管理', 1, '1', '/sys/sysOrg', 'C', '0', 'sys:sysOrg:view', '#', 'admin', now(), 'admin', now(), '机构管理菜单');
+insert into sys_menu (id,menu_name, parent_id, order_num, url,menu_type, visible, perms, icon, create_by, create_time, update_by, update_time, remark)
+values(90,'机构管理', 1, '0', '/sys/sysOrg', 'C', '0', 'sys:sysOrg:view', '#', 'admin', now(), 'admin', now(), '机构管理菜单');
 insert into sys_menu(id,menu_name,parent_id,order_num,url,menu_type,visible,perms,icon,create_by,create_time,update_by,update_time,remark)
 values(100,'用户管理',1,'1','/system/user','C','0','system:user:view','#','admin', now(),'admin', now(),'用户管理菜单');
 insert into sys_menu(id,menu_name,parent_id,order_num,url,menu_type,visible,perms,icon,create_by,create_time,update_by,update_time,remark)
@@ -32,9 +32,11 @@ values(203,'通知公告',1,'8','/system/notice','C','0','system:notice:view','#
 insert into sys_menu(id,menu_name,parent_id,order_num,url,menu_type,visible,perms,icon,create_by,create_time,update_by,update_time,remark)
 values(204,'日志管理',1,'9','#','M','0','','#','admin', now(),'admin', now(),'日志管理菜单');
 insert into sys_menu(id,menu_name,parent_id,order_num,url,menu_type,visible,perms,icon,create_by,create_time,update_by,update_time,remark)
-values(205,'在线用户',2,'1','/monitor/online','C','0','monitor:online:view','#','admin', now(),'admin', now(),'在线用户菜单');
+values(205,'緩存管理',1,'10','/system/cache','C','0','','#','admin', now(),'admin', now(),'緩存管理菜单');
 insert into sys_menu(id,menu_name,parent_id,order_num,url,menu_type,visible,perms,icon,create_by,create_time,update_by,update_time,remark)
-values(206,'定时任务',2,'2','/monitor/job','C','0','monitor:job:view','#','admin', now(),'admin', now(),'定时任务菜单');
+values(301,'在线用户',2,'1','/monitor/online','C','0','monitor:online:view','#','admin', now(),'admin', now(),'在线用户菜单');
+insert into sys_menu(id,menu_name,parent_id,order_num,url,menu_type,visible,perms,icon,create_by,create_time,update_by,update_time,remark)
+values(306,'定时任务',2,'2','/monitor/job','C','0','monitor:job:view','#','admin', now(),'admin', now(),'定时任务菜单');
 insert into sys_menu(id,menu_name,parent_id,order_num,url,menu_type,visible,perms,icon,create_by,create_time,update_by,update_time,remark)
 values(207,'数据监控',2,'3','/monitor/data','C','0','monitor:data:view','#','admin', now(),'admin', now(),'数据监控菜单');
 insert into sys_menu(id,menu_name,parent_id,order_num,url,menu_type,visible,perms,icon,create_by,create_time,update_by,update_time,remark)

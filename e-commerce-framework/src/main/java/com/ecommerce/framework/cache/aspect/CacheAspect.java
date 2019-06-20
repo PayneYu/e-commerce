@@ -3,8 +3,7 @@ package com.ecommerce.framework.cache.aspect;
 import com.ecommerce.common.utils.StringUtils;
 import com.ecommerce.framework.cache.annotation.CacheClean;
 import com.ecommerce.framework.cache.annotation.CacheGet;
-import com.ecommerce.framework.cache.annotation.CachePage;
-import com.ecommerce.framework.cache.util.CacheComponent;
+import com.ecommerce.framework.cache.component.CacheComponent;
 import com.ecommerce.framework.cache.util.KeyGeneratorUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -33,7 +32,7 @@ public class CacheAspect {
         CacheGet methodType = method.getAnnotation(CacheGet.class);
         String cacheName = methodType.cacheName();
         if(StringUtils.isBlank(cacheName)){
-            cacheName = joinPoint.getTarget().getClass().getSimpleName();
+            cacheName = joinPoint.getTarget().getClass().getName();
         }
         String key = parserKey(method, args, methodType.key());
         Object object = cacheComponent.getCacheByKeyAndName(cacheName,key);
@@ -64,30 +63,30 @@ public class CacheAspect {
         CacheClean methodType = method.getAnnotation(CacheClean.class);
         String cacheName = methodType.cacheName();
         if(StringUtils.isBlank(cacheName)){
-            cacheName = joinPoint.getTarget().getClass().getSimpleName();
+            cacheName = joinPoint.getTarget().getClass().getName();
         }
-        cacheComponent.removeCache(cacheName,methodType.key());
+        cacheComponent.removeCache(cacheName);
         Object[] args = joinPoint.getArgs();
         return joinPoint.proceed(args);
     }
 
-    @Around("@annotation(com.ecommerce.framework.cache.annotation.CachePage)")
-    public Object cachePage(ProceedingJoinPoint joinPoint) throws Throwable {
-        Object[] args = joinPoint.getArgs();
-        MethodSignature signature = (MethodSignature)joinPoint.getSignature();
-        Method method = signature.getMethod();
-        CachePage methodType = method.getAnnotation(CachePage.class);
-        String cacheName = methodType.cacheName();
-        if(StringUtils.isBlank(cacheName)){
-            cacheName = joinPoint.getTarget().getClass().getSimpleName();
-        }
-        String key = KeyGeneratorUtil.generatePageKey(args);
-        Object object = cacheComponent.getCacheByKeyAndName(cacheName,key);
-        if (object==null) {
-            object = joinPoint.proceed(args);
-            cacheComponent.setCache(cacheName, key,object);
-        }
-        return object;
-    }
+//    @Around("@annotation(com.ecommerce.framework.cache.annotation.CachePage)")
+//    public Object cachePage(ProceedingJoinPoint joinPoint) throws Throwable {
+//        Object[] args = joinPoint.getArgs();
+//        MethodSignature signature = (MethodSignature)joinPoint.getSignature();
+//        Method method = signature.getMethod();
+//        CachePage methodType = method.getAnnotation(CachePage.class);
+//        String cacheName = methodType.cacheName();
+//        if(StringUtils.isBlank(cacheName)){
+//            cacheName = joinPoint.getTarget().getClass().getSimpleName();
+//        }
+//        String key = KeyGeneratorUtil.generatePageKey(args);
+//        Object object = cacheComponent.getCacheByKeyAndName(cacheName,key);
+//        if (object==null) {
+//            object = joinPoint.proceed(args);
+//            cacheComponent.setCache(cacheName, key,object);
+//        }
+//        return object;
+//    }
 
 }

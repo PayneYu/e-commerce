@@ -4,6 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ecommerce.framework.sys.mapper.SysMenuMapper">
 
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+
     <resultMap type="com.ecommerce.framework.sys.entity.SysMenu" id="SysMenuResult">
         <id property="id" column="id"/>
         <result property="menuName" column="menu_name"/>
