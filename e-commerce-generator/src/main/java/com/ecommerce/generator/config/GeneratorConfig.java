@@ -2,6 +2,7 @@ package com.ecommerce.generator.config;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
@@ -17,17 +18,20 @@ public class GeneratorConfig {
     /**
      * 获取作者
      */
-    public final static String AUTHOR = "huizhe yu";
+    @Value("${generate.comment.author}")
+    public String author;
 
     /**
-     * 获取版权年份
+     * 获取版权moduleName
      */
-    public final static String MODULE_NAME = "sys";
+    @Value("${generate.moduleName}")
+    public String moduleName;
 
     /**
-     * 获取版权年份
+     * 获取版packageName
      */
-    public final static String PACKAGE_NAME = "com.ecommerce.framework";
+    @Value("${generate.package.name}")
+    public String packageName;
     /**
      * 是否自动去除表前缀
      */

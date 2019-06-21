@@ -1,6 +1,7 @@
 package com.ecommerce.generator.util;
 
 import com.ecommerce.common.utils.DateUtils;
+import com.ecommerce.common.utils.spring.SpringContextHolder;
 import com.ecommerce.generator.config.GeneratorConfig;
 import com.ecommerce.generator.domain.ColumnInfo;
 import com.ecommerce.generator.domain.TableInfo;
@@ -18,6 +19,8 @@ import java.util.Map;
  * @author huizhe.yu
  */
 public class GenUtils {
+
+    private static GeneratorConfig generatorConfig = SpringContextHolder.getBean("generatorConfig");
 
     /**
      * 项目空间路径
@@ -69,17 +72,17 @@ public class GenUtils {
     public static VelocityContext getVelocityContext(TableInfo table) {
         // java对象数据传递到模板文件vm
         VelocityContext velocityContext = new VelocityContext();
-        String packageName = GeneratorConfig.PACKAGE_NAME;
+        String packageName = generatorConfig.getPackageName();
         velocityContext.put("tableName", table.getTableName());
         velocityContext.put("tableComment", replaceKeyword(table.getTableComment()));
         velocityContext.put("primaryKey", table.getPrimaryKey());
         velocityContext.put("className", table.getClassName());
         velocityContext.put("classname", table.getClassname());
-        velocityContext.put("moduleName", GeneratorConfig.MODULE_NAME);
+        velocityContext.put("moduleName", generatorConfig.getModuleName());
         velocityContext.put("columns", table.getColumns());
         velocityContext.put("basePackage", getBasePackage(packageName));
         velocityContext.put("package", packageName);
-        velocityContext.put("author", GeneratorConfig.AUTHOR);
+        velocityContext.put("author", generatorConfig.getAuthor());
         velocityContext.put("datetime", DateUtils.getNowDateStr());
         return velocityContext;
     }
@@ -172,7 +175,7 @@ public class GenUtils {
     }
 
     public static String getProjectPath() {
-        String packageName = GeneratorConfig.PACKAGE_NAME;
+        String packageName = generatorConfig.getPackageName();
         StringBuffer projectPath = new StringBuffer();
         projectPath.append("main/java/");
         projectPath.append(packageName.replace(".", "/"));

@@ -7,13 +7,12 @@ import com.ecommerce.generator.mapper.GenMapper;
 import com.ecommerce.generator.service.IGenService;
 import com.ecommerce.generator.util.GenUtils;
 import com.ecommerce.generator.util.VelocityInitializer;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,13 +28,15 @@ import java.util.zip.ZipOutputStream;
  *
  * @author huizhe.yu
  */
+@Slf4j
 @Service
 public class GenServiceImpl implements IGenService {
 
-    private static final Logger log = LoggerFactory.getLogger(GenServiceImpl.class);
-
     @Autowired
     private GenMapper genMapper;
+
+    @Autowired
+    private GeneratorConfig generatorConfig;
 
     /**
      * 查询ry数据库表信息
@@ -120,7 +121,7 @@ public class GenServiceImpl implements IGenService {
             try {
                 // 添加到zip
                 zip.putNextEntry(
-                    new ZipEntry(GenUtils.getFileName(template, table, GeneratorConfig.MODULE_NAME).replaceAll("//", "/")));
+                    new ZipEntry(GenUtils.getFileName(template, table, generatorConfig.getModuleName()).replaceAll("//", "/")));
                 IOUtils.write(sw.toString(), zip, "UTF-8");
                 IOUtils.closeQuietly(sw);
                 zip.closeEntry();
