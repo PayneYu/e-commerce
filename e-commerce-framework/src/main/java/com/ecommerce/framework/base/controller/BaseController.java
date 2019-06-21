@@ -1,12 +1,5 @@
 package com.ecommerce.framework.base.controller;
 
-import java.beans.PropertyEditorSupport;
-import java.util.Date;
-import java.util.List;
-
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-
 import com.ecommerce.common.base.AjaxResult;
 import com.ecommerce.common.page.PageDomain;
 import com.ecommerce.common.page.TableDataInfo;
@@ -17,6 +10,12 @@ import com.ecommerce.framework.sys.entity.SysUser;
 import com.ecommerce.framework.util.ShiroUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+
+import java.beans.PropertyEditorSupport;
+import java.util.Date;
+import java.util.List;
 
 /**
  * web层通用数据处理
@@ -33,7 +32,9 @@ public class BaseController {
         binder.registerCustomEditor(Date.class, new PropertyEditorSupport() {
             @Override
             public void setAsText(String text) {
-                setValue(DateUtils.parseDate(text));
+                if(StringUtils.isNotBlank(text)){
+                    setValue(DateUtils.parseDate(text));
+                }
             }
         });
     }

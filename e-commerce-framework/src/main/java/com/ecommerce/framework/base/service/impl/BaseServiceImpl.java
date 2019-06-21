@@ -35,6 +35,7 @@ public class BaseServiceImpl<T, M extends BaseMapper<T>> implements BaseService<
      * @return
      */
     @Transactional
+    @CacheClean
     public T insert(T t) {
         if(t instanceof CreateEntity){
             CreateEntity entity = (CreateEntity)t;
@@ -51,6 +52,7 @@ public class BaseServiceImpl<T, M extends BaseMapper<T>> implements BaseService<
      * @param list
      */
     @Transactional
+    @CacheClean
     public void insertList(List<T> list) {
         if (CollectionUtils.isNotEmpty(list)) {
             mapper.insertList(list);

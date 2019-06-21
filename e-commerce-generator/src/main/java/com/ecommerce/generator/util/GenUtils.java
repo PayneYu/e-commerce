@@ -128,7 +128,7 @@ public class GenUtils {
         String className = table.getClassName();
         String javaPath = PROJECT_PATH + "/" + moduleName + "/";
         String mybatisPath = MYBATIS_PATH + "/" + moduleName + "/";
-        String htmlPath = TEMPLATES_PATH + "/" + moduleName + "/";
+        String htmlPath = TEMPLATES_PATH + "/" + moduleName + "/" + classname + "/";
 
         if (template.contains("entity.java.vm")) {
             return javaPath + "entity" + "/" + className + ".java";
