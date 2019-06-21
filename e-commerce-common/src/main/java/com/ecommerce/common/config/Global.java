@@ -125,24 +125,5 @@ public class Global {
         return StringUtils.nvl(getConfig("gen.author"), "huizhe");
     }
 
-    /**
-     * 生成包路径
-     */
-    public static String getPackageName() {
-        return StringUtils.nvl(getConfig("gen.packageName"), "com.ecommerce.web");
-    }
 
-    /**
-     * 是否自动去除表前缀
-     */
-    public static String getAutoRemovePre() {
-        return StringUtils.nvl(getConfig("gen.autoRemovePre"), "true");
-    }
-
-    /**
-     * 表前缀(类名不会包含表前缀)
-     */
-    public static String getTablePrefix() {
-        return StringUtils.nvl(getConfig("gen.tablePrefix"), "sys_");
-    }
 }
