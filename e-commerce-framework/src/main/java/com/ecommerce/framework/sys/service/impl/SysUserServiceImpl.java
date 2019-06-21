@@ -7,6 +7,8 @@ import com.ecommerce.common.utils.CollectionUtils;
 import com.ecommerce.common.utils.Md5Utils;
 import com.ecommerce.common.utils.StringUtils;
 import com.ecommerce.framework.base.service.impl.BaseServiceImpl;
+import com.ecommerce.framework.cache.annotation.CacheClean;
+import com.ecommerce.framework.cache.annotation.CacheGet;
 import com.ecommerce.framework.sys.entity.SysRole;
 import com.ecommerce.framework.sys.entity.SysUser;
 import com.ecommerce.framework.sys.entity.SysUserRole;
@@ -15,6 +17,7 @@ import com.ecommerce.framework.sys.mapper.SysUserMapper;
 import com.ecommerce.framework.sys.mapper.SysUserRoleMapper;
 import com.ecommerce.framework.sys.service.ISysConfigService;
 import com.ecommerce.framework.sys.service.ISysUserService;
+import com.ecommerce.framework.util.ShiroUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,12 +50,8 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, SysUserMapper> 
     private ISysConfigService configService;
 
     @Override
-    public SysUser selectById(Long id) {
-        return userMapper.selectById(id);
-    }
-
-    @Override
     @Transactional
+    @CacheClean(cacheName = "com.ecommerce.framework.sys.service.impl.SysUserServiceImpl")
     public SysUser insert(SysUser sysUser) {
         sysUser.setDelFlag(UserStatus.OK.getCode());
         super.insert(sysUser);
@@ -64,12 +63,17 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, SysUserMapper> 
 
     @Override
     @Transactional
+    @CacheClean(cacheName = "com.ecommerce.framework.sys.service.impl.SysUserServiceImpl")
     public int update(SysUser sysUser) {
         // 删除用户与角色关联
         userRoleMapper.deleteByCriteria(SysUserRole.PROPERTY_USER_ID,sysUser.getId());
         // 新增用户与角色管理
         insertUserRole(sysUser);
-        return super.update(sysUser);
+        int i = super.update(sysUser);
+        if(i>0&& ShiroUtils.getUserId().equals(sysUser.getId())){
+            ShiroUtils.setSysUser(sysUser);
+        }
+        return i;
     }
 
     /**
@@ -101,11 +105,13 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, SysUserMapper> 
      * @return 结果
      */
     @Override
+    @CacheClean(cacheName = "com.ecommerce.framework.sys.service.impl.SysUserServiceImpl")
     public int updateUserInfo(SysUser user) {
         return userMapper.updateUser(user);
     }
 
     @Override
+    @CacheGet(cacheName = "com.ecommerce.framework.sys.service.impl.SysUserServiceImpl")
     public SysUser selectUserByLoginName(String loginName) {
         return userMapper.selectOneByCriteria("loginName", loginName);
     }
@@ -187,6 +193,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, SysUserMapper> 
      * @return 结果
      */
     @Override
+    @CacheClean(cacheName = "com.ecommerce.framework.sys.service.impl.SysUserServiceImpl")
     public void deleteUserByIds(String ids) throws BusinessException {
         Long[] userIds = Convert.toLongArray(ids);
         for (Long userId : userIds) {
@@ -205,6 +212,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, SysUserMapper> 
      * @return 结果
      */
     @Override
+    @CacheGet(cacheName = "com.ecommerce.framework.sys.service.impl.SysUserServiceImpl")
     public String selectUserRoleGroup(Long userId) {
         List<SysRole> list = roleMapper.selectRolesByUserId(userId);
         List<String> roleNames = list.stream().map(SysRole::getRoleName).collect(Collectors.toList());

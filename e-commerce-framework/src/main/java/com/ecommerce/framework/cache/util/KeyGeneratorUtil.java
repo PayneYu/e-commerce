@@ -3,6 +3,7 @@ package com.ecommerce.framework.cache.util;
 
 import com.ecommerce.common.page.PageDomain;
 import com.ecommerce.common.page.TableSupport;
+import com.ecommerce.common.utils.StringUtils;
 
 import java.lang.reflect.Method;
 
@@ -17,7 +18,9 @@ public class KeyGeneratorUtil {
         StringBuilder sb = new StringBuilder();
         sb.append(method.getName());
         for (Object obj : args) {
-            sb.append(":" + String.valueOf(obj));
+            if(StringUtils.isNotNull(obj)&&StringUtils.isNotBlank(String.valueOf(obj))){
+                sb.append(":" + String.valueOf(obj));
+            }
         }
         return String.valueOf(sb);
     }

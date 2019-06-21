@@ -88,6 +88,7 @@ public class CacheComponent {
            if(manager.cacheExists(cacheName)){
                manager.removeCache(cacheName);
            }
+           Cache cache = manager.getCache(cacheName);
            String cacheMapperName = cacheName.replace("service.impl","mapper").replace("ServiceImpl","Mapper");
            if(cacheMapperName.contains("Mapper")){
                clearMybatisCache(cacheName);

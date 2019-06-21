@@ -49,7 +49,7 @@ public class SysProfileController extends BaseController {
     public String profile(ModelMap mmap) {
         SysUser user = getSysUser();
         user.setSex(dictDataService.selectDictLabel("sys_user_sex", user.getSex()));
-        mmap.put("user", user);
+        mmap.put("user", userService.selectById(user.getId()));
         mmap.put("roleGroup", userService.selectUserRoleGroup(user.getId()));
         return prefix + "/profile";
     }

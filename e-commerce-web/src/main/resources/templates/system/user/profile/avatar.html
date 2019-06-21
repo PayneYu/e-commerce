@@ -5,7 +5,7 @@
 <link th:href="@{/ajax/libs/cropbox/cropbox.css}" rel="stylesheet"/>
 <body class="white-bg">
 <div class="container">
-    <div class="imageBox">
+    <div class="imageBox" style="height: 370px">
         <div class="thumbBox"></div>
         <div class="spinner" style="display: none">Loading...</div>
     </div>
@@ -18,7 +18,7 @@
         <input type="button" id="btnZoomIn" class="Btnsty_peyton" value="+"/>
         <input type="button" id="btnZoomOut" class="Btnsty_peyton" value="-"/>
     </div>
-    <div class="cropped"></div>
+    <div class="cropped" style="height: 400px"></div>
 </div>
 <div th:include="include::footer"></div>
 <script th:src="@{/ajax/libs/cropbox/cropbox.js}"></script>

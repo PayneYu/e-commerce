@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
     <title>老人服务后台管理系统</title>
-    <meta name="keywords" content="若依,若依开源,若依框架,若依系统,huizhe yu">
     <meta name="description" content="若依基于SpringBoot2.0的权限管理系统 易读易懂、界面简洁美观。 核心技术采用Spring、MyBatis、Shiro没有任何其它重度依赖">
     <link href="../static/css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" rel="stylesheet"/>
     <link href="../static/css/font-awesome.min.css" th:href="@{css/font-awesome.min.css}" rel="stylesheet"/>
@@ -33,11 +32,11 @@
     <div class="row">
         <div class="col-sm-7"></head>
             <div class="signin-info">
-                <div class="logopanel m-b">
-                    <h1><img alt="[ 若依 ]" src="../static/logo.png" th:src="@{/logo.png}"></h1>
-                </div>
+               <!-- <div class="logopanel m-b">
+                    <h1><img  src="../static/logo.png" th:src="@{/logo.png}"></h1>
+                </div>-->
                 <div class="m-b"></div>
-                <h4>欢迎使用 <strong>老人服务 后台管理系统</strong></h4>
+                <h4>欢迎使用 <strong>老人服务管理系统</strong></h4>
                 <ul class="m-b">
                     <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> SpringBoot</li>
                     <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> Mybatis</li>
@@ -50,7 +49,10 @@
         </div>
         <div class="col-sm-5">
             <form id="signupForm">
-                <h4 class="no-margins">登录：</h4>
+                    <div >
+                        <h4><img src="../static/logo.png" th:src="@{/logo.png}"/><span style="margin-left: 10px">登录：</span></h4>
+                    </div>
+
                 <p class="m-t-md">你若不离不弃，我必生死相依</p>
                 <input type="text" name="username" class="form-control uname" placeholder="用户名" value="admin"/>
                 <input type="password" name="password" class="form-control pword" placeholder="密码" value="admin123"/>
