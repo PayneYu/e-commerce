@@ -11,8 +11,6 @@ import java.util.List;
  * @author huizhe yu
  */
 public interface SysUserMapper extends BaseMapper<SysUser> {
-
-    SysUser selectById(Long id);
     /**
      * 根据条件分页查询用户对象
      *

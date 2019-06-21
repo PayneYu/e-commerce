@@ -42,9 +42,6 @@
         select u.id, u.org_id, u.login_name, u.user_name, u.email, u.phone_number, u.password, u.sex, u.avatar, u.salt, u.status, u.del_flag, u.login_ip, u.login_date, u.create_by, u.create_time, u.remark, o.org_name from sys_user u left join sys_org o on u.org_id = o.id
     </sql>
 
-    <select id="selectById" resultMap="SysUserResult">
-        <include refid="selectSysUserVo"/> WHERE u.id = #{id}
-    </select>
 
     <select id="selectUserList" parameterType="com.ecommerce.framework.sys.entity.SysUser" resultMap="SysUserResult">
         <include refid="selectSysUserVo"/>
