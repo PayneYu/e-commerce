@@ -13,7 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 	
 	<sql id="select${className}Vo">
-        select#foreach($column in $columns)t.$column.columnName#if($velocityCount != $columns.size()),#end#end from ${tableName} t
+        select #foreach($column in $columns)t.$column.columnName#if($velocityCount != $columns.size()),#end#end from ${tableName} t
     </sql>
 	
     <select id="select${className}List" parameterType="${package}.${moduleName}.entity.${className}" resultMap="${className}Result">
