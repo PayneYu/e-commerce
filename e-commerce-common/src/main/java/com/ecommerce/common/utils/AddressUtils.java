@@ -5,17 +5,16 @@ import com.ecommerce.common.json.JsonUtils;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 获取地址类
  * 
  * @author huizhe yu
  */
+@Slf4j
 public class AddressUtils {
     public static final String IP_URL = "http://ip.taobao.com/service/getIpInfo.php";
-    private static final Logger log = LoggerFactory.getLogger(AddressUtils.class);
 
     public static String getRealAddressByIP(String ip) {
         String address = "XX XX";
