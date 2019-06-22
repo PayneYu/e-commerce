@@ -16,7 +16,7 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @ToString
-@Table(name = "sys_notice")
+@Table(name = "sys_notice1")
 public class SysNotice extends UpdateEntity {
 
     /** 公告标题 */
