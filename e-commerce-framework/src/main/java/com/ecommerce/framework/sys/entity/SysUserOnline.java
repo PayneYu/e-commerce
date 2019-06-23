@@ -20,6 +20,10 @@ import java.util.Date;
 @Table(name = "sys_user_online")
 public class SysUserOnline extends BaseEntity {
 
+    public static final String PROPERTY_LOGIN_NAME = "loginName";
+
+    public static final String PROPERTY_STATUS = "status";
+
     /** 用户会话id */
     private String sessionId;
 
@@ -48,6 +52,6 @@ public class SysUserOnline extends BaseEntity {
     private Long expireTime;
 
     /** 在线状态 */
-    private OnlineStatus status = OnlineStatus.on_line;
+    private String status = OnlineStatus.on_line.getCode();
 
 }

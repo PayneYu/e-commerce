@@ -1,22 +1,28 @@
 package com.ecommerce.framework.shiro.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
-
 import com.ecommerce.common.constant.Constants;
 import com.ecommerce.common.constant.ShiroConstants;
 import com.ecommerce.common.constant.UserConstants;
+import com.ecommerce.common.enums.OnlineStatus;
 import com.ecommerce.common.enums.UserStatus;
 import com.ecommerce.common.exception.user.*;
+import com.ecommerce.common.utils.CollectionUtils;
 import com.ecommerce.common.utils.DateUtils;
 import com.ecommerce.common.utils.MessageUtils;
 import com.ecommerce.common.utils.ServletUtils;
 import com.ecommerce.framework.manager.AsyncManager;
 import com.ecommerce.framework.manager.factory.AsyncFactory;
 import com.ecommerce.framework.sys.entity.SysUser;
+import com.ecommerce.framework.sys.entity.SysUserOnline;
+import com.ecommerce.framework.sys.service.ISysUserOnlineService;
 import com.ecommerce.framework.sys.service.ISysUserService;
 import com.ecommerce.framework.util.ShiroUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
+
+import java.util.List;
 
 /**
  * 登录校验方法
@@ -31,6 +37,12 @@ public class SysLoginService {
 
     @Autowired
     private ISysUserService userService;
+
+    @Value("${project.enable.singleLogin}")
+    private Boolean enableSingleLogin;
+
+    @Autowired
+    private ISysUserOnlineService userOnlineService;
 
     /**
      * 登录
@@ -85,6 +97,19 @@ public class SysLoginService {
         }
 
         passwordService.validate(user, password);
+
+        if(enableSingleLogin!=null&&Boolean.valueOf(enableSingleLogin)){
+            List<SysUserOnline> list = userOnlineService.selectByCriteria(SysUserOnline.PROPERTY_LOGIN_NAME,username,
+                    SysUserOnline.PROPERTY_STATUS, OnlineStatus.on_line);
+            if(CollectionUtils.isNotEmpty(list)){
+                list.forEach(online -> {
+                    userOnlineService.forceLogout(online.getSessionId());
+                    Object[] args = new Object[]{online.getIpAddress(), online.getBrowser()};
+                    AsyncManager.me().execute(AsyncFactory.recordLoginInfo(username, Constants.LOGIN_SUCCESS,
+                            MessageUtils.message("user.repeat.login", args)));
+                });
+            }
+        }
          AsyncManager.me().execute(AsyncFactory.recordLoginInfo(username, Constants.LOGIN_SUCCESS,
          MessageUtils.message("user.login.success")));
         recordLoginInfo(user);

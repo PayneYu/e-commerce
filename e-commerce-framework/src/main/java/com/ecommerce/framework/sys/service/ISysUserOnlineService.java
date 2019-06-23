@@ -1,10 +1,11 @@
 package com.ecommerce.framework.sys.service;
 
-import java.util.Date;
-import java.util.List;
-
+import com.ecommerce.common.base.AjaxResult;
 import com.ecommerce.framework.base.service.BaseService;
 import com.ecommerce.framework.sys.entity.SysUserOnline;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * 在线用户 服务层
@@ -62,7 +63,7 @@ public interface ISysUserOnlineService extends BaseService<SysUserOnline> {
      * @param sessionId
      *            会话ID
      */
-    void forceLogout(String sessionId);
+    AjaxResult forceLogout(String sessionId);
 
     /**
      * 查询会话集合

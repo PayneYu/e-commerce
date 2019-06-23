@@ -57,7 +57,6 @@ public class OnlineSessionFilter extends AccessControlFilter {
                     onlineSession.markAttributeChanged();
                 }
             }
-
             if (onlineSession.getStatus() == OnlineStatus.off_line) {
                 return false;
             }

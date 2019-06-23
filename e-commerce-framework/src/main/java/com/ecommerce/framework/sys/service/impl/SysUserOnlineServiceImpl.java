@@ -1,17 +1,21 @@
 package com.ecommerce.framework.sys.service.impl;
 
-import java.util.Date;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
+import com.ecommerce.common.base.AjaxResult;
+import com.ecommerce.common.enums.OnlineStatus;
 import com.ecommerce.common.utils.DateUtils;
 import com.ecommerce.common.utils.StringUtils;
 import com.ecommerce.framework.base.service.impl.BaseServiceImpl;
+import com.ecommerce.framework.shiro.session.OnlineSession;
+import com.ecommerce.framework.shiro.session.OnlineSessionDAO;
 import com.ecommerce.framework.sys.entity.SysUserOnline;
 import com.ecommerce.framework.sys.mapper.SysUserOnlineMapper;
 import com.ecommerce.framework.sys.service.ISysUserOnlineService;
+import com.ecommerce.framework.util.ShiroUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * 在线用户 服务层处理
@@ -24,6 +28,9 @@ public class SysUserOnlineServiceImpl extends BaseServiceImpl<SysUserOnline, Sys
 
     @Autowired
     private SysUserOnlineMapper userOnlineMapper;
+
+    @Autowired
+    private OnlineSessionDAO onlineSessionDAO;
 
     /**
      * 通过会话序号查询信息
@@ -98,8 +105,22 @@ public class SysUserOnlineServiceImpl extends BaseServiceImpl<SysUserOnline, Sys
      *            会话ID
      */
     @Override
-    public void forceLogout(String sessionId) {
-        userOnlineMapper.deleteOnlineById(sessionId);
+    public AjaxResult forceLogout(String sessionId) {
+        SysUserOnline online = selectOnlineById(sessionId);
+        if (online == null) {
+            return AjaxResult.error("用户已下线");
+        }
+        OnlineSession onlineSession = (OnlineSession)onlineSessionDAO.readSession(online.getSessionId());
+        if (onlineSession == null) {
+            return AjaxResult.error("用户已下线");
+        }
+        if (sessionId.equals(ShiroUtils.getSessionId())) {
+            return AjaxResult.error("当前登陆用户无法强退");
+        }
+        onlineSession.setStatus(OnlineStatus.off_line);
+        online.setStatus(OnlineStatus.off_line.getCode());
+        saveOnline(online);
+        return AjaxResult.success();
     }
 
     /**
