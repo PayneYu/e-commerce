@@ -17,7 +17,7 @@
 
     <properties>
         <poi.version>3.17</poi.version>
-        <commons.io.version>2.5</commons.io.version>
+        <commons.io.version>2.7</commons.io.version>
         <jsoup.version>1.11.3</jsoup.version>
     </properties>
 
